@@ -14,6 +14,7 @@ class User::SessionsControllerTest < ActionDispatch::IntegrationTest
     post user_sessions_url,
       params: { email: user.email, password: pw }
     assert_redirected_to root_path
+    assert_not_nil flash[:notice]
   end
 
   test "does not log in user" do
@@ -22,6 +23,7 @@ class User::SessionsControllerTest < ActionDispatch::IntegrationTest
       email: user.email,
       password: "definitely-wrong-#{SecureRandom.uuid}"
     }
-    assert_response :success
+    assert_redirected_to new_user_sessions_url
+    assert_not_nil flash[:alert]
   end
 end

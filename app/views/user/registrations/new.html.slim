@@ -1,5 +1,10 @@
 h1 User::Registrations#new
 
+- if @user.errors.any?
+  ul
+    - @user.errors.full_messages.each do |msg|
+      li = msg
+
 = form_for @user, url: { action: :create } do |f|
   .field
     = f.label :email

@@ -8,44 +8,55 @@ class User::RegistrationsControllerTest < ActionDispatch::IntegrationTest
 
   test "create new user" do
     user = build :user
-    post user_registrations_url, params: {
-      user: {
-        email: user.email,
-        password: user.password,
-        password_confirmation: user.password
+    assert_difference 'User.count', 1 do
+      post user_registrations_url, params: {
+        user: {
+          email: user.email,
+          password: user.password,
+          password_confirmation: user.password
+        }
       }
-    }
-
+    end
     assert_redirected_to root_path
+    assert_not_nil flash[:notice]
   end
 
   test "does not create new user" do
     user = build :user
-    post user_registrations_url, params: {
-      user: {
-        email: "bad email",
-        password: user.password,
-        password_confirmation: user.password
+    assert_difference 'User.count', 0 do
+      post user_registrations_url, params: {
+        user: {
+          email: "bad email",
+          password: user.password,
+          password_confirmation: user.password
+        }
       }
-    }
-    assert_response :success # renders "new" template
+    end
+    assert_template 'user/registrations/new'
+    assert_response :unprocessable_entity
 
-    post user_registrations_url, params: {
-      user: {
-        email: user.email,
-        password: "short!!",
-        password_confirmation: "short!!"
+    assert_difference 'User.count', 0 do
+      post user_registrations_url, params: {
+        user: {
+          email: user.email,
+          password: "short!!",
+          password_confirmation: "short!!"
+        }
       }
-    }
-    assert_response :success # renders "new" template
+    end
+    assert_template 'user/registrations/new'
+    assert_response :unprocessable_entity
 
-    post user_registrations_url, params: {
-      user: {
-        email: user.email,
-        password: "notmatching1111",
-        password_confirmation: "notmatching2222"
+    assert_difference 'User.count', 0 do
+      post user_registrations_url, params: {
+        user: {
+          email: user.email,
+          password: "notmatching1111",
+          password_confirmation: "notmatching2222"
+        }
       }
-    }
-    assert_response :success # renders "new" template
+    end
+    assert_template 'user/registrations/new'
+    assert_response :unprocessable_entity
   end
 end

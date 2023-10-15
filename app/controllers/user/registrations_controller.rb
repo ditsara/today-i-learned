@@ -6,11 +6,9 @@ class User::RegistrationsController < ApplicationController
   def create
     @user = User.new user_params
     if @user.save
-      # TODO: show success message
-      redirect_to root_path
+      redirect_to root_path, notice: "Created user #{@user.email}"
     else
-      # TODO: show errors
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

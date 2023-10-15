@@ -52,6 +52,9 @@ group :development, :test do
 
   # Use factories instead of fixtures
   gem "factory_bot_rails"
+
+  # Bring back white/grey-box testing [https://github.com/rails/rails-controller-testing]
+  gem 'rails-controller-testing'
 end
 
 group :development do
