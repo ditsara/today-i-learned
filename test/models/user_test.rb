@@ -13,4 +13,24 @@ class UserTest < ActiveSupport::TestCase
       User.first.destroy
     end
   end
+
+  test "validates email presence" do
+    u = build :user
+
+    u.email = nil
+    assert_equal u.valid?, false
+
+    u.email = "is-an-email@mailinator.com"
+    assert_equal u.valid?, true
+  end
+
+  test "validates email format" do
+    u = build :user
+
+    u.email = "not-an-email"
+    assert_equal u.valid?, false
+
+    u.email = "is-an-email@mailinator.com"
+    assert_equal u.valid?, true
+  end
 end
