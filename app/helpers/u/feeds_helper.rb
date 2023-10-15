@@ -1,0 +1,2 @@
+module U::FeedsHelper
+end

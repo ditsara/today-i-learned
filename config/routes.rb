@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   namespace :u do
+    get 'feeds/recent'
     resource :profiles, only: :show
   end
 

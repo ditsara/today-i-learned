@@ -10,4 +10,7 @@ class User < ApplicationRecord
     confirmation: true,
     presence: true,
     if: -> { new_record? || changes[:crypted_password] }
+
+  has_many :user_contents, foreign_key: "owner_id"
+  has_many :posts, class_name: "UserContent::Post", foreign_key: "owner_id"
 end

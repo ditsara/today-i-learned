@@ -10,8 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_14_085812) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_15_072333) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "user_contents", force: :cascade do |t|
+    t.string "type"
+    t.integer "owner_id", null: false
+    t.string "title", default: ""
+    t.text "body", default: ""
+    t.string "ancestry", null: false, collation: "C"
+    t.datetime "edited_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ancestry"], name: "index_user_contents_on_ancestry"
+    t.index ["type", "created_at"], name: "index_user_contents_on_type_and_created_at", order: { created_at: :desc }
+    t.index ["type", "owner_id"], name: "index_user_contents_on_type_and_owner_id"
+  end
+
   create_table "users", force: :cascade do |t|
+    t.string "name"
     t.string "email"
     t.string "crypted_password"
     t.string "salt"
@@ -27,4 +45,5 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_14_085812) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
+  add_foreign_key "user_contents", "users", column: "owner_id"
 end
