@@ -1,0 +1,29 @@
+h1 User::Registrations#new
+
+= form_for @user, url: { action: :create } do |f|
+  .field
+    = f.label :email
+    = f.text_field :email
+  .field
+    = f.label :password
+    = f.password_field :password
+  .field
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation
+  .button = f.submit
+
+- if Rails.env.development?
+  hr
+
+  ruby:
+    test_user_params = {
+      user: {
+        email: "test-#{SecureRandom.uuid}@test.com",
+        password: "abc123D$",
+        password_confirmation: "abc123D$"
+      }
+    }
+
+  = button_to "Test Create User",
+    { action: :create },
+    params: test_user_params

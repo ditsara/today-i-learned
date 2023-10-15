@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title
+      | TodayILearned
+    meta[name="viewport" content="width=device-width,initial-scale=1"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_importmap_tags
+  body
+    - if current_user
+      = link_to "Sign Out", user_sessions_path,
+        data: { turbo_method: :delete }
+      = link_to "Profile", u_profiles_path
+    - else
+      = link_to "Sign Up", new_user_registrations_path
+      = link_to "Sign In", new_user_sessions_path
+    = link_to "Home", root_path
+    hr
+    p#notice = flash[:notice]
+    p#alert = flash[:alert]
+    = yield

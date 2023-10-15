@@ -74,4 +74,5 @@ end
 
 ##### Application
 
-gem 'sorcery'
+gem 'sorcery' # auth [https://github.com/sorcery/sorcery]
+gem 'slim-rails' # html templating [https://slim-template.github.io]

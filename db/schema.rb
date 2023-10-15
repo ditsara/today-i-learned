@@ -18,8 +18,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_14_085812) do
     t.string "reset_password_token"
     t.datetime "reset_password_token_expires_at"
     t.datetime "reset_password_email_set_at"
+    t.string "remember_me_token"
+    t.datetime "remember_me_token_expires_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email"
+    t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
 end

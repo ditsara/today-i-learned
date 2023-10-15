@@ -1,0 +1,21 @@
+h1 User::Sessions#new
+
+= form_with url: user_sessions_path, method: :post do |f|
+  .field
+    = f.label :email
+    = f.text_field :email
+  .field
+    = f.label :password
+    = f.password_field :password
+  .actions
+    = f.submit "Sign In"
+
+- if Rails.env.development?
+  hr
+
+  ruby:
+    test_login_params = { email: User.last&.email, password: "abc123D$" }
+
+  = button_to "Test Login User",
+    { action: :create },
+    params: test_login_params
