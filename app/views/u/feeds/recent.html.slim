@@ -3,4 +3,6 @@ h1 U::Feeds#recent
 ul
   - @posts.each do |post|
     li
-      = "#{post.owner.name}: #{post.presentation_title}"
+      = "#{post.owner.name}: #{post.presentation_title} (#{humanize_datetime post.created_at})"
+
+= paginate @posts

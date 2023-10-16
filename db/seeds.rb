@@ -13,7 +13,7 @@ if Rails.env.development?
     user = User.create(
       name: "#{Faker::Name.first_name} #{Faker::Name.initials(number: 1)}",
       email: "test-#{SecureRandom.uuid}@test.com",
-      password: "12341234"
+      password: "abc123D$"
     )
 
     (2..10).to_a.sample.times do
@@ -27,8 +27,9 @@ if Rails.env.development?
 
   # Randomize all Post creation times
   UserContent::Post.all.each do |post|
-    random_offset = (1..10).to_a.sample
-    new_created_time = post.created_at + random_offset
-    post.update_columns created_at: new_created_time
+    random_offset_1 = (0..7).to_a.sample.days
+    random_offset_2 = (0..60).to_a.sample.minutes
+    t = post.created_at - random_offset_1 - random_offset_2
+    post.update_columns created_at: t, updated_at: t
   end
 end

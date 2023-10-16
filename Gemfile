@@ -85,3 +85,4 @@ end
 gem 'sorcery' # auth [https://github.com/sorcery/sorcery]
 gem 'slim-rails' # html templating [https://slim-template.github.io]
 gem 'ancestry' # tree structured content (eg, replies) [https://github.com/stefankroes/ancestry]
+gem 'kaminari' # auto-pagination [https://github.com/kaminari/kaminari]
