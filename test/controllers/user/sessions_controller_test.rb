@@ -26,4 +26,11 @@ class User::SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_sessions_url
     assert_not_nil flash[:alert]
   end
+
+  test "logs out user" do
+    u = create :user
+    login_user(u)
+    delete user_sessions_url
+    assert_redirected_to root_url
+  end
 end

@@ -3,6 +3,7 @@ h1 U::Feeds#recent
 ul
   - @posts.each do |post|
     li
-      = "#{post.owner.name}: #{post.presentation_title} (#{humanize_datetime post.created_at})"
+      => "#{post.owner.name}: #{post.presentation_title}"
+      = link_to "(#{humanize_datetime post.created_at})", u_post_path(post.id)
 
 = paginate @posts

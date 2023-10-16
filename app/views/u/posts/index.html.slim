@@ -1,0 +1,11 @@
+p style="color: green" = notice
+
+h1 Posts
+
+#u_posts
+  - @u_posts.each do |u_post|
+    == render u_post
+    p
+      = link_to "Show this post", u_post
+
+= link_to "New post", new_u_post_path

@@ -5,6 +5,7 @@ require "rails/test_help"
 module ActiveSupport
   class TestCase
     include FactoryBot::Syntax::Methods
+    include Sorcery::TestHelpers::Rails::Integration
 
     # Run tests in parallel with specified workers
     parallelize(workers: :number_of_processors)
@@ -14,5 +15,14 @@ module ActiveSupport
     # fixtures :all
 
     # Add more helper methods to be used by all tests here...
+    def login_user(user, password: "12341234")
+      post user_sessions_url, params: { email: user.email, password: password }
+      follow_redirect!
+    end
+
+    def logout_user
+      delete user_sessions_url
+      follow_redirect!
+    end
   end
 end

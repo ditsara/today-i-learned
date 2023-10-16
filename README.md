@@ -1,24 +1,41 @@
-# README
+# Today I Learned
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Rails 7 demo app.
 
-Things you may want to cover:
+## Functional Goals
 
-* Ruby version
+Build a Twitter-like social messageboard system for internal company use. Users
+can create posts about what they have learned recently. Other users can
+interact with posts by replying or reacting. All users must be logged in and
+authorized to view all information.
 
-* System dependencies
+## Technical Goals
 
-* Configuration
+Demonstrate Rails 7 features that speed the development of common business
+applications. These include:
 
-* Database creation
+* ActiveStorage
+* Turbo and Stimulus
+* ActionCable (WebSockets)
+* Various libraries to speed development of common functionality
 
-* Database initialization
+## Libraries
 
-* How to run the test suite
+[Sorcery](https://github.com/sorcery/sorcery) for authentication. This is
+actually not the most popular Rails auth library (that honor belongs to
+Devise), but I prefer Sorcery's more explicit approach. It's slightly slower to
+implement, but makes it easier to support different and non-standard business
+use cases.
 
-* Services (job queues, cache servers, search engines, etc.)
+[Slim](https://slim-template.github.io) for HTML templating. There's nothing
+wrong with the default, Embedded Ruby or "ERB", but I prefer Slim's cleaner and
+more minimalist syntax. Otherwise, writing HTML typically relies a lot of
+editor tooling which is sometimes not so reliable.
 
-* Deployment instructions
+[Ancestry](https://github.com/stefankroes/ancestry) implements a tree using the
+materialized path model. This is much more efficient than recursing through
+`parent_id` in your database. Social content is essentially tree content --
+think replies-to-replies.
 
-* ...
+[Kaminari](https://github.com/kaminari/kaminari) for pagination. Provides
+configurable pagination functions and some view helpers.

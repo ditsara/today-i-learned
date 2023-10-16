@@ -1,0 +1,9 @@
+p style="color: green" = notice
+
+div id="#{dom_id @u_post}"
+  h2 = @u_post.title
+  = @u_post.body
+
+div
+  => link_to "Edit this post", edit_u_post_path(@u_post.id)
+  = button_to "Destroy this post", u_post_path(@u_post.id), method: :delete
