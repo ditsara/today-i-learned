@@ -1,6 +1,10 @@
 class U::PostsController < ApplicationController
   before_action :set_u_post, only: %i[ show edit update destroy ]
 
+  def index
+    @u_posts = UserContent::Post.recents.includes(:owner).page(params[:page])
+  end
+
   # GET /u/posts/1 or /u/posts/1.json
   def show
   end

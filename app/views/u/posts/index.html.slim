@@ -1,11 +1,9 @@
-p style="color: green" = notice
+h1 U::Posts#index
 
-h1 Posts
+ul
+  - @u_posts.each do |post|
+    li
+      => "#{post.owner.name}: #{post.presentation_title}"
+      = link_to "(#{humanize_datetime post.created_at})", u_post_path(post.id)
 
-#u_posts
-  - @u_posts.each do |u_post|
-    == render u_post
-    p
-      = link_to "Show this post", u_post
-
-= link_to "New post", new_u_post_path
+= paginate @u_posts

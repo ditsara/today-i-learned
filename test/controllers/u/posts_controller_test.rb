@@ -6,6 +6,15 @@ class U::PostsControllerTest < ActionDispatch::IntegrationTest
     @u_post = create(:user_content_post, owner: @user)
   end
 
+  teardown do
+    logout_user
+  end
+
+  test "should get index" do
+    get u_posts_url
+    assert_response :success
+  end
+
   # test "should get new" do
   #   get new_u_post_url
   #   assert_response :success
