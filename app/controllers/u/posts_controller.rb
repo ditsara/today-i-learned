@@ -7,6 +7,7 @@ class U::PostsController < ApplicationController
 
   # GET /u/posts/1 or /u/posts/1.json
   def show
+    @u_replies = @u_post.replies.order(created_at: :asc)
   end
 
   # GET /u/posts/new

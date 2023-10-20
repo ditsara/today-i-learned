@@ -9,6 +9,7 @@
 #   end
 
 if Rails.env.development?
+  # Make users with Posts
   20.times do
     user = User.create(
       name: "#{Faker::Name.first_name} #{Faker::Name.initials(number: 1)}",
@@ -18,6 +19,7 @@ if Rails.env.development?
 
     (2..10).to_a.sample.times do
       t = SecureRandom.rand > 0.3 ? Faker::Company.bs.titleize : ""
+
       user.posts.new(
         title: t,
         body: Faker::Lorem.paragraphs.join("\n\n")
@@ -25,11 +27,26 @@ if Rails.env.development?
     end
   end
 
-  # Randomize all Post creation times
+  # Make replies to each post
+  UserContent::Post.all.each do |post|
+    (0..10).to_a.sample.times do
+      post.replies.create parent: post,
+        owner: User.order("RANDOM()").limit(1).first,
+        body: Faker::Lorem.paragraphs.join("\n\n")
+    end
+  end
+
+  # Randomize all Post and Reply creation times
   UserContent::Post.all.each do |post|
     random_offset_1 = (0..7).to_a.sample.days
     random_offset_2 = (0..60).to_a.sample.minutes
     t = post.created_at - random_offset_1 - random_offset_2
     post.update_columns created_at: t, updated_at: t
+
+    post.replies.each do |reply|
+      random_offset_3 = (0..360).to_a.sample.minutes
+      t = post.created_at + random_offset_3
+      reply.update_columns created_at: t, updated_at: t
+    end
   end
 end
