@@ -2,6 +2,7 @@ class Redcarpet::CustomRender < Redcarpet::Render::HTML
   include Rails.application.routes.url_helpers
 
   # auto-links hash tags to an associated listing of Posts
+  # TODO: ignore if the hashtag is already linked.
   def postprocess(full_document)
     full_document.gsub HashTag::Scanner::MATCHER do |match|
       param = HashTag.format(match)
