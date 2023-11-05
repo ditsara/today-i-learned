@@ -17,7 +17,6 @@ Rails.application.routes.draw do
   namespace :u do
     resources :posts do
       collection do
-        # get 'hash_tag'
         get 'hash_tag/:id', to: 'posts#hash_tag', as: 'hash_tag'
       end
     end
