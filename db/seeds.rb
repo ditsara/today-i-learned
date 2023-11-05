@@ -9,6 +9,17 @@
 #   end
 
 if Rails.env.development?
+  # Create some common HashTags
+  hash_tags = 10.times.map do
+    HashTag.create name: Faker::Lorem.word
+  end
+
+  # Use this random generator later
+  get_random_hash_tag_texts = lambda do |max = 2|
+    how_many_hash_tags = (0..max).to_a.sample
+    hash_tags.sample(how_many_hash_tags).map(&:name_with_hash)
+  end
+
   # Make users with Posts
   20.times do
     user = User.create(
@@ -20,9 +31,11 @@ if Rails.env.development?
     (2..10).to_a.sample.times do
       t = SecureRandom.rand > 0.3 ? Faker::Company.bs.titleize : ""
 
+      body_content = Faker::Lorem.paragraphs + get_random_hash_tag_texts.()
+
       user.posts.new(
         title: t,
-        body: Faker::Lorem.paragraphs.join("\n\n")
+        body: body_content.join("\n\n")
       ).save
     end
   end
@@ -30,9 +43,10 @@ if Rails.env.development?
   # Make replies to each post
   UserContent::Post.all.each do |post|
     (0..10).to_a.sample.times do
+      body_content = Faker::Lorem.paragraphs + get_random_hash_tag_texts.(1)
       post.replies.create parent: post,
         owner: User.order("RANDOM()").limit(1).first,
-        body: Faker::Lorem.paragraphs.join("\n\n")
+        body: body_content.join("\n\n")
     end
   end
 
@@ -49,4 +63,6 @@ if Rails.env.development?
       reply.update_columns created_at: t, updated_at: t
     end
   end
+
+  UserContent.all.each { HashTag::Scanner.update_links _1 }
 end

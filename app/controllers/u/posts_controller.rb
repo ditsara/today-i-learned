@@ -5,6 +5,16 @@ class U::PostsController < ApplicationController
     @u_posts = UserContent::Post.recents.includes(:owner).page(params[:page])
   end
 
+  def hash_tag
+    @hash_tag = HashTag.find_by!(name: HashTag.format(params[:id]))
+    @u_posts = @hash_tag.user_contents
+      .where(type: "UserContent::Post")
+      .order(created_at: :desc)
+      .includes(:owner)
+      .page(params[:page])
+    render :index
+  end
+
   # GET /u/posts/1 or /u/posts/1.json
   def show
     @u_replies = @u_post.replies.order(created_at: :asc)
@@ -58,13 +68,13 @@ class U::PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_u_post
-      @u_post = UserContent::Post.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_u_post
+    @u_post = UserContent::Post.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def u_post_params
-      params.fetch(:u_post, {})
-    end
+  # Only allow a list of trusted parameters through.
+  def u_post_params
+    params.fetch(:u_post, {})
+  end
 end
