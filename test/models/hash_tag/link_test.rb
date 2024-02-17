@@ -4,7 +4,7 @@ class HashTag::LinkTest < ActiveSupport::TestCase
   test "creates new HashTag and HashTag::Link" do
     hash_tag_text = "##{Faker::Lorem.word}"
     post = create :user_content_post,
-      body: "#{Faker::Lorem.paragraph} #{hash_tag_text}"
+      content: "#{Faker::Lorem.paragraph} #{hash_tag_text}"
 
     assert_difference ['HashTag.count', 'HashTag::Link.count'], 1 do
       HashTag::Scanner.update_links post
@@ -21,7 +21,7 @@ class HashTag::LinkTest < ActiveSupport::TestCase
   test "links new Post to existing HashTag" do
     hash_tag = create :hash_tag, name: Faker::Lorem.word
     post = create :user_content_post,
-      body: "#{Faker::Lorem.paragraph} #{hash_tag.name_with_hash}"
+      content: "#{Faker::Lorem.paragraph} #{hash_tag.name_with_hash}"
 
     assert_difference -> { HashTag.count } => 0,
       -> { HashTag::Link.count } => 1 do
@@ -49,7 +49,7 @@ class HashTag::LinkTest < ActiveSupport::TestCase
   test "no effect on valid linked HashTag" do
     hash_tag = create :hash_tag, name: Faker::Lorem.word
     post = create :user_content_post,
-      body: "#{Faker::Lorem.paragraph} #{hash_tag.name_with_hash}"
+      content: "#{Faker::Lorem.paragraph} #{hash_tag.name_with_hash}"
     hash_tag_link = create :hash_tag_link,
       user_content: post, hash_tag: hash_tag
 

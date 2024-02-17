@@ -22,6 +22,7 @@ if Rails.env.development?
 
   # convert text array to Trix content
   paras_to_trix = lambda do |paras|
+      body: "#{Faker::Lorem.paragraph} #{hash_tag.name_with_hash}"
     s = paras.join('<br/><br/>')
     %(<div class="trix-content"><div>#{s}</div></div>)
   end

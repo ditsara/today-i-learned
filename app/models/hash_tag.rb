@@ -28,7 +28,11 @@ class HashTag < ApplicationRecord
       body_hashtags = html_doc.search('//text()').map { extract_hashtags(_1.to_s) }
       title_hashtags = extract_hashtags user_content.title
 
-      scanned_hash_tags_strs = [body_hashtags, title_hashtags].flatten.uniq
+      scanned_hash_tags_strs = [body_hashtags, title_hashtags]
+                               .flatten
+                               .map { HashTag.format(_1) }
+                               .uniq
+
       current_hash_tag_strs = user_content.hash_tags.pluck(:name)
 
       # add links that don't already exist (and create HashTag objs if req'd)

@@ -7,20 +7,7 @@ module ApplicationHelper
     end
   end
 
-  def markdown(txt)
-    @__markdown = Redcarpet::Markdown.new Redcarpet::CustomRender.new,
-                                          fenced_code_blocks: true,
-                                          space_after_headers: true,
-                                          autolink: true,
-                                          tables: true,
-                                          underline: true,
-                                          quote: true,
-                                          footnotes: true
-
-    @__markdown.render(txt).html_safe
-  end
-
   def action_text_pp(at_content)
-    ActionText::Postprocess.postprocess(at_content).html_safe
+    ActionText::Postprocess.postprocess(at_content)&.html_safe
   end
 end

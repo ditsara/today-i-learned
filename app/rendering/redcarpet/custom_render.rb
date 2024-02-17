@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# DEPRECATED
 class Redcarpet::CustomRender < Redcarpet::Render::HTML
   include Rails.application.routes.url_helpers
 
