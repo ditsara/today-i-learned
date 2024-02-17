@@ -1,5 +1,6 @@
 class UserContent < ApplicationRecord
   has_ancestry
+  has_rich_text :content
 
   belongs_to :owner, class_name: 'User'
   has_many :hash_tag_links, class_name: "HashTag::Link"
