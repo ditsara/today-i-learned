@@ -71,7 +71,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_05_104524) do
     t.string "type"
     t.integer "owner_id", null: false
     t.string "title", default: ""
-    t.text "body", default: ""
     t.string "ancestry", null: false, collation: "C"
     t.datetime "edited_at"
     t.datetime "created_at", null: false

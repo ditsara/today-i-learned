@@ -5,7 +5,7 @@ class UserContent::Post < UserContent
   validates :owner, presence: true
 
   def presentation_title
-    (title.presence || body).truncate(50, separator: " ")
+    (title.presence || content&.to_plain_text)&.truncate(50, separator: " ")
   end
 
   def replies

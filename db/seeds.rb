@@ -22,7 +22,6 @@ if Rails.env.development?
 
   # convert text array to Trix content
   paras_to_trix = lambda do |paras|
-      body: "#{Faker::Lorem.paragraph} #{hash_tag.name_with_hash}"
     s = paras.join('<br/><br/>')
     %(<div class="trix-content"><div>#{s}</div></div>)
   end
@@ -40,10 +39,7 @@ if Rails.env.development?
 
       body_content = Faker::Lorem.paragraphs + get_random_hash_tag_texts.call
 
-      post = user.posts.new(
-        title: t,
-        body: body_content.join("\n\n") # TODO: remove this entire col
-      )
+      post = user.posts.new(title: t)
       post.save
       ActionText::RichText.create! record_type: 'UserContent',
                                    record_id: post.id,
@@ -57,8 +53,7 @@ if Rails.env.development?
     (0..10).to_a.sample.times do
       body_content = Faker::Lorem.paragraphs + get_random_hash_tag_texts.call(1)
       reply = post.replies.new parent: post,
-                               owner: User.order('RANDOM()').limit(1).first,
-                               body: body_content.join("\n\n")
+                               owner: User.order('RANDOM()').limit(1).first
       reply.save
       ActionText::RichText.create! record_type: 'UserContent',
                                    record_id: reply.id,

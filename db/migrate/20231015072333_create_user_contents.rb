@@ -5,7 +5,6 @@ class CreateUserContents < ActiveRecord::Migration[7.1]
       t.integer :owner_id, null: false
 
       t.string :title, default: ""
-      t.text :body, default: ""
 
       t.string :ancestry, collation: 'C', null: false
       t.index :ancestry
