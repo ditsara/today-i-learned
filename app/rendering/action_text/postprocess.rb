@@ -3,18 +3,24 @@ module ActionText::Postprocess
     include Rails.application.routes.url_helpers
 
     def postprocess(at_content)
-      html_doc = Nokogiri::HTML::DocumentFragment.parse(at_content&.body&.to_html)
-      return unless html_doc
+      f = at_content&.body&.to_html
+      return unless f
 
-      html_doc.search('//text()').reject { _1.parent&.name == 'a' }.each do |t|
-        x = t.content.gsub HashTag::Scanner::MATCHER do |match|
-          param = HashTag.format(match)
-          "<a href='#{hash_tag_u_posts_path(param)}'>#{match}</a>"
-        end
-        t.parent&.children = Nokogiri::HTML::DocumentFragment.parse(x).children
+      html_doc = Nokogiri::HTML::DocumentFragment.parse(f)
+
+      html_doc.search('.//text()').reject { _1.parent&.name == 'a' }.each do |t|
+        t_content_decorated =
+          t.content.gsub HashTag::Scanner::MATCHER do |match|
+            param = HashTag.format(match)
+            "<a href='#{hash_tag_u_posts_path(param)}'>#{match}</a>"
+          end
+
+        next unless t_content_decorated != t.content
+
+        t.replace Nokogiri::HTML::DocumentFragment.parse(t_content_decorated)
       end
-debugger
-      html_doc.css('.trix-content').to_html
+
+      html_doc.to_html
     end
   end
 
