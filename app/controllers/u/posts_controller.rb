@@ -1,4 +1,4 @@
-class U::PostsController < ApplicationController
+class U::PostsController < UController
   before_action :set_u_post, only: %i[ show edit update destroy ]
 
   def index
@@ -32,6 +32,7 @@ class U::PostsController < ApplicationController
   # POST /u/posts or /u/posts.json
   def create
     @u_post = UserContent::Post.new(u_post_params)
+    @u_post.owner = current_user
 
     respond_to do |format|
       if @u_post.save
@@ -75,6 +76,7 @@ class U::PostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def u_post_params
-    params.fetch(:u_post, {})
+    # params.fetch(:u_post, {})
+    params.require(:user_content_post).permit(:title, :content)
   end
 end

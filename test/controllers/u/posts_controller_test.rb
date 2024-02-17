@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 class U::PostsControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -10,7 +10,8 @@ class U::PostsControllerTest < ActionDispatch::IntegrationTest
     logout_user
   end
 
-  test "should get index" do
+  test 'should get index' do
+    login_user @user
     get u_posts_url
     assert_response :success
   end
@@ -28,7 +29,8 @@ class U::PostsControllerTest < ActionDispatch::IntegrationTest
   #   assert_redirected_to u_post_url(U::Post.last)
   # end
 
-  test "should show post" do
+  test 'should show post' do
+    login_user @user
     get u_post_url(@u_post)
     assert_response :success
   end
