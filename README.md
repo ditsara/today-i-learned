@@ -39,3 +39,6 @@ think replies-to-replies.
 
 [Kaminari](https://github.com/kaminari/kaminari) for pagination. Provides
 configurable pagination functions and some view helpers.
+
+[Pundit](https://github.com/varvet/pundit) as a minimal authentication
+framework. Implicitly uses `<model>Policy` to define auth.
