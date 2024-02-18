@@ -35,15 +35,28 @@ class U::PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test "should get edit" do
-  #   get edit_u_post_url(@u_post)
-  #   assert_response :success
-  # end
+  test 'should get edit' do
+    login_user @user
+    get edit_u_post_url(@u_post)
+    assert_response :success
+  end
 
-  # test "should update u_post" do
-  #   patch u_post_url(@u_post), params: { u_post: {  } }
-  #   assert_redirected_to u_post_url(@u_post)
-  # end
+  test 'should update u_post (redirect to #show)' do
+    login_user @user
+    new_title = "New Title #{SecureRandom.uuid}"
+    patch u_post_url(@u_post),
+          params: { user_content_post: { title: new_title } }
+    assert_redirected_to u_post_url(@u_post)
+  end
+
+  test '(not owner) should not update u_post' do
+    @other_user = create :user
+    login_user @other_user
+    new_title = "New Title #{SecureRandom.uuid}"
+    patch u_post_url(@u_post),
+          params: { user_content_post: { title: new_title } }
+    assert_response :forbidden
+  end
 
   # test "should destroy u_post" do
   #   assert_difference("U::Post.count", -1) do

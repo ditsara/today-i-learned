@@ -28,7 +28,6 @@ module ApplicationHelper
         'u_post'
       end
 
-    puts "PREFIX: #{prefix}"
     return unless prefix
 
     if model.persisted?

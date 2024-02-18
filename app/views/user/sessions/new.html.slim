@@ -14,7 +14,8 @@ h1 User::Sessions#new
   hr
 
   ruby:
-    test_login_params = { email: User.last&.email, password: "abc123D$" }
+    # from seed file
+    test_login_params = { email: "test@test.com", password: "abc123D$" }
 
   = button_to "Test Login User",
     { action: :create },

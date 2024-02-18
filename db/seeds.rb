@@ -14,26 +14,20 @@ if Rails.env.development?
     HashTag.create name: Faker::Lorem.word
   end
 
-  # Use this random generator later
+  # Random HashTag generator
   get_random_hash_tag_texts = lambda do |max = 2|
     how_many_hash_tags = (0..max).to_a.sample
     hash_tags.sample(how_many_hash_tags).map(&:name_with_hash)
   end
 
-  # convert text array to Trix content
+  # Convert text array to Trix content
   paras_to_trix = lambda do |paras|
     s = paras.join('<br/><br/>')
     %(<div class="trix-content"><div>#{s}</div></div>)
   end
 
-  # Make users with Posts
-  20.times do
-    user = User.create(
-      name: "#{Faker::Name.first_name} #{Faker::Name.initials(number: 1)}",
-      email: "test-#{SecureRandom.uuid}@test.com",
-      password: 'abc123D$'
-    )
-
+  # Create a random number of sample Posts (with content) for User
+  create_sample_posts = lambda do |user|
     (2..10).to_a.sample.times do
       t = SecureRandom.rand > 0.3 ? Faker::Company.bs.titleize : ''
 
@@ -46,6 +40,25 @@ if Rails.env.development?
                                    name: 'content',
                                    body: paras_to_trix.call(body_content)
     end
+  end
+
+  # Make a test User (with Posts)
+  user = User.create(
+    name: 'Test User',
+    email: 'test@test.com',
+    password: 'abc123D$'
+  )
+  create_sample_posts.call(user)
+
+  # Make more Users (with Posts)
+  20.times do
+    user = User.create(
+      name: "#{Faker::Name.first_name} #{Faker::Name.initials(number: 1)}",
+      email: "test-#{SecureRandom.uuid}@test.com",
+      password: 'abc123D$'
+    )
+
+    create_sample_posts.call(user)
   end
 
   # Make replies to each post

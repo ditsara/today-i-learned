@@ -87,3 +87,4 @@ gem 'slim-rails', "~> 3.6.2" # html templating [https://slim-template.github.io]
 gem 'ancestry', "~> 4.3.3" # tree structured content (eg, replies) [https://github.com/stefankroes/ancestry]
 gem 'kaminari', "~> 1.2.2" # auto-pagination [https://github.com/kaminari/kaminari]
 gem 'redcarpet', "~> 3.6.0" # Markdown rendering, for all user content [https://github.com/vmg/redcarpet]
+gem 'pundit', "~> 2.3.1" # Simple authorization framework

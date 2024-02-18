@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :posts do
       collection do
         get 'hash_tag/:id', to: 'posts#hash_tag', as: 'hash_tag'
+        get 'user/:id', to: 'posts#user', as: 'user'
       end
     end
     resource :profiles, only: :show
