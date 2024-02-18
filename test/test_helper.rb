@@ -1,6 +1,9 @@
-ENV["RAILS_ENV"] ||= "test"
-require_relative "../config/environment"
-require "rails/test_help"
+ENV['RAILS_ENV'] ||= 'test'
+require_relative '../config/environment'
+require 'rails/test_help'
+require 'simplecov'
+
+SimpleCov.start 'rails'
 
 module ActiveSupport
   class TestCase
@@ -15,8 +18,8 @@ module ActiveSupport
     # fixtures :all
 
     # Add more helper methods to be used by all tests here...
-    def login_user(user, password: "12341234")
-      post user_sessions_url, params: { email: user.email, password: password }
+    def login_user(user, password: '12341234')
+      post user_sessions_url, params: { email: user.email, password: }
       follow_redirect!
     end
 
