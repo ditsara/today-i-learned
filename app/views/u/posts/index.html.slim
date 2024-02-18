@@ -10,3 +10,7 @@ ul
       = link_to "(#{humanize_datetime post.created_at})", u_post_path(post.id)
 
 = paginate @u_posts
+
+hr
+
+= link_to "New Post", new_u_post_path

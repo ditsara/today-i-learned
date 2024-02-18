@@ -26,6 +26,8 @@ module ApplicationHelper
       case model.class.to_s
       when "UserContent::Post"
         'u_post'
+      when "UserContent::Reply"
+        'u_reply'
       end
 
     return unless prefix

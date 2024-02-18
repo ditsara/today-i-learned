@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   namespace :user do
-    resource :registrations, only: [:new, :create, :update]
+    resource :registrations, only: %i[new create update]
     # get 'sessions/new'
     # get 'sessions/create'
     # get 'sessions/destroy'
-    resource :sessions, only: [:new, :create, :destroy]
+    resource :sessions, only: %i[new create destroy]
   end
   # Define your application routes per the DSL in
   # https://guides.rubyonrails.org/routing.html
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # Reveal health status on /up that returns 200 if the app boots with no
   # exceptions, otherwise 500. Can be used by load balancers and uptime
   # monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  get 'up' => 'rails/health#show', as: :rails_health_check
 
   namespace :u do
     resources :posts do
@@ -20,9 +20,11 @@ Rails.application.routes.draw do
         get 'hash_tag/:id', to: 'posts#hash_tag', as: 'hash_tag'
         get 'user/:id', to: 'posts#user', as: 'user'
       end
+
+      resources :replies, only: %i[new edit create update]
     end
     resource :profiles, only: :show
   end
 
-  root "pub/pages#index"
+  root 'pub/pages#index'
 end

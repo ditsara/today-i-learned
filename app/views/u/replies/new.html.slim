@@ -1,0 +1,9 @@
+h1 U::Replies#new
+= "Post #{@u_post.id}"
+
+== render "form", u_reply: @u_reply
+
+br
+
+div
+  = link_to "Back to Posts", u_post_path(@u_post)

@@ -1,2 +1,4 @@
 h1 u/profiles#show
-= @user.id
+ul
+  li = @user.id
+  li = link_to 'My Posts', user_u_posts_path(@user)
