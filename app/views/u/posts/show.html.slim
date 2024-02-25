@@ -11,7 +11,6 @@ div id="#{dom_id @u_post}"
 - if policy(@u_post).update?
   div
     => link_to "Edit this post", edit_u_post_path(@u_post.id)
-    = button_to "Destroy this post", u_post_path(@u_post.id), method: :delete
 
 ul
   - @u_replies.each do |reply|
@@ -19,6 +18,9 @@ ul
     = reply.owner.name
     br
     = action_text_pp reply.content
+    - if policy(reply).update?
+      div
+        = link_to "Edit this reply", edit_u_post_reply_path(post_id: @u_post.id, id: reply.id)
 
 hr
 = link_to "Reply", new_u_post_reply_path(@u_post)

@@ -35,6 +35,18 @@ class U::RepliesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should edit reply' do
-    skip 'pending'
+    login_user @user
+    patch u_post_reply_url(post_id: @u_post.id, id: @u_reply.id),
+          params: { user_content_reply: { content: 'Modified' } }
+    assert_redirected_to u_post_url(id: @u_post.id)
+  end
+
+  test '(not owner) should not edit reply' do
+    login_user @user
+    @other_user = create(:user)
+    @u_reply.update owner: @other_user
+    patch u_post_reply_url(post_id: @u_post.id, id: @u_reply.id),
+          params: { user_content_reply: { content: 'Modified' } }
+    assert_response :forbidden
   end
 end
