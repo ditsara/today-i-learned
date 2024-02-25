@@ -16,23 +16,26 @@ class U::PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test "should get new" do
-  #   get new_u_post_url
-  #   assert_response :success
-  # end
-
-  # test "should create u_post" do
-  #   assert_difference("U::Post.count") do
-  #     post u_posts_url, params: { u_post: {  } }
-  #   end
-
-  #   assert_redirected_to u_post_url(U::Post.last)
-  # end
-
   test 'should show post' do
     login_user @user
     get u_post_url(@u_post)
     assert_response :success
+  end
+
+  test 'should get new' do
+    login_user @user
+    get new_u_post_url
+    assert_response :success
+  end
+
+  test 'should create u_post' do
+    login_user @user
+    assert_difference('UserContent::Post.count') do
+      post u_posts_url,
+           params: { user_content_post: { title: 'Title', content: 'Hello' } }
+    end
+
+    assert_redirected_to u_post_url(UserContent::Post.last)
   end
 
   test 'should get edit' do
@@ -57,12 +60,4 @@ class U::PostsControllerTest < ActionDispatch::IntegrationTest
           params: { user_content_post: { title: new_title } }
     assert_response :forbidden
   end
-
-  # test "should destroy u_post" do
-  #   assert_difference("U::Post.count", -1) do
-  #     delete u_post_url(@u_post)
-  #   end
-
-  #   assert_redirected_to u_posts_url
-  # end
 end

@@ -19,3 +19,6 @@ ul
     = reply.owner.name
     br
     = action_text_pp reply.content
+
+hr
+= link_to "Reply", new_u_post_reply_path(@u_post)

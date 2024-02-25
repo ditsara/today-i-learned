@@ -27,7 +27,7 @@ module ApplicationHelper
       when "UserContent::Post"
         'u_post'
       when "UserContent::Reply"
-        'u_reply'
+        'u_post_reply'
       end
 
     return unless prefix
