@@ -14,10 +14,10 @@ authorized to view all information.
 Demonstrate Rails 7 features that speed the development of common business
 applications. These include:
 
-* ActiveStorage
-* Turbo and Stimulus
-* ActionCable (WebSockets)
-* Various libraries to speed development of common functionality
+- ActiveStorage
+- Turbo and Stimulus
+- ActionCable (WebSockets)
+- Various libraries to speed development of common functionality
 
 ## Libraries
 
@@ -29,7 +29,7 @@ use cases.
 
 [Slim](https://slim-template.github.io) for HTML templating. There's nothing
 wrong with the default, Embedded Ruby or "ERB", but I prefer Slim's cleaner and
-more minimalist syntax. Otherwise, writing HTML typically relies a lot of
+more minimalist syntax. Otherwise, writing HTML typically relies on a lot of
 editor tooling which is sometimes not so reliable.
 
 [Ancestry](https://github.com/stefankroes/ancestry) implements a tree using the
@@ -42,3 +42,15 @@ configurable pagination functions and some view helpers.
 
 [Pundit](https://github.com/varvet/pundit) as a minimal authentication
 framework. Implicitly uses `<model>Policy` to define auth.
+
+## Development Environment Dependencies
+
+### ActiveStorage
+
+- [libvips](https://github.com/libvips/libvips) v8.6+ or
+  [ImageMagick](https://imagemagick.org/index.php) for image analysis
+  and transformations
+- [ffmpeg](http://ffmpeg.org/) v3.4+ for video previews and ffprobe for
+  video/audio analysis
+- [poppler](https://poppler.freedesktop.org/) or [muPDF](https://mupdf.com/)
+  for PDF previews

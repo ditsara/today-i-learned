@@ -31,7 +31,7 @@ class U::RepliesController < UController
     authorize @u_reply
 
     respond_to do |format|
-      if @u_post.update(u_reply_params)
+      if @u_reply.update(u_reply_params)
         format.html { redirect_to u_post_url(@u_post), notice: 'Reply was successfully updated.' }
         format.json { render :show, status: :ok, location: @u_post }
       else

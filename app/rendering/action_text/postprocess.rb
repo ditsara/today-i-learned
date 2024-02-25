@@ -3,7 +3,7 @@ module ActionText::Postprocess
     include Rails.application.routes.url_helpers
 
     def postprocess(at_content)
-      f = at_content&.body&.to_html
+      f = at_content&.body&.to_rendered_html_with_layout
       return unless f
 
       html_doc = Nokogiri::HTML::DocumentFragment.parse(f)
