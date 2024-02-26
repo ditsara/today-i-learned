@@ -1,0 +1,23 @@
+h1 User::PasswordResets#edit
+
+= form_with url: user_password_reset_path(id: @token), method: :patch do |f|
+  .field
+    = f.label :password
+    = f.password_field :password
+  .field
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation
+  .actions
+    = f.submit "Reset Password"
+
+
+- if Rails.env.development?
+  hr
+
+  ruby:
+    # from seed file
+    test_params = { password: "abc123D$", password_confirmation: "abc123D$" }
+
+  = button_to "Test Reset PW",
+    { action: :update },
+    params: test_params, method: :patch

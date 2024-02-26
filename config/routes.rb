@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-  namespace :user do
-    resource :registrations, only: %i[new create update]
-    # get 'sessions/new'
-    # get 'sessions/create'
-    # get 'sessions/destroy'
-    resource :sessions, only: %i[new create destroy]
-  end
   # Define your application routes per the DSL in
   # https://guides.rubyonrails.org/routing.html
 
@@ -13,6 +6,12 @@ Rails.application.routes.draw do
   # exceptions, otherwise 500. Can be used by load balancers and uptime
   # monitors to verify that the app is live.
   get 'up' => 'rails/health#show', as: :rails_health_check
+
+  namespace :user do
+    resource :registrations, only: %i[new create update]
+    resource :sessions, only: %i[new create destroy]
+    resources :password_resets, only: %i[new create edit update]
+  end
 
   namespace :u do
     resources :posts do

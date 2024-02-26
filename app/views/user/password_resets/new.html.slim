@@ -1,0 +1,19 @@
+h1 User::PasswordResets#new
+
+= form_with url: user_password_resets_path, method: :post do |f|
+  .field
+    = f.label :email
+    = f.text_field :email
+  .actions
+    = f.submit "Email Password Reset Instructions"
+
+- if Rails.env.development?
+  hr
+
+  ruby:
+    # from seed file
+    test_login_params = { email: "test@test.com" }
+
+  = button_to "Test Reset PW",
+    { action: :create },
+    params: test_login_params

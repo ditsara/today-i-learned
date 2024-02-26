@@ -1,4 +1,4 @@
-class User::RegistrationsController < ApplicationController
+class User::RegistrationsController < PubController
   def new
     @user = User.new
   end
@@ -10,9 +10,6 @@ class User::RegistrationsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def update
   end
 
   private

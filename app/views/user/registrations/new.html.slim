@@ -17,6 +17,8 @@ h1 User::Registrations#new
     = f.password_field :password_confirmation
   .button = f.submit
 
+= link_to "Forgot Password", new_user_password_reset_path
+
 - if Rails.env.development?
   hr
 
