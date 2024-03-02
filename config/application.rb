@@ -25,5 +25,8 @@ module TodayILearned
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.action_dispatch.rescue_responses['Pundit::NotAuthorizedError'] = :forbidden
+
+    config.action_mailer.default_url_options = { host: 'localhost:3000' }
+    config.default_url_options = config.action_mailer.default_url_options
   end
 end

@@ -22,3 +22,9 @@ html
     p#notice = flash[:notice]
     p#alert = flash[:alert]
     = yield
+
+- if Rails.env.local?
+  hr
+  ' Development:
+  =< link_to "Routes", "/rails/info/routes"
+  =< link_to "Email Previews", "/rails/mailers"

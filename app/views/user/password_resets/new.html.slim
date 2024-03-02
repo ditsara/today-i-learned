@@ -17,3 +17,6 @@ h1 User::PasswordResets#new
   = button_to "Test Reset PW",
     { action: :create },
     params: test_login_params
+
+- if Rails.env.local?
+  = link_to "Email Previews", "/rails/mailers"
