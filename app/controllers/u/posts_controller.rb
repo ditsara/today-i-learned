@@ -1,8 +1,13 @@
+# frozen_string_literal: true
+
 class U::PostsController < UController
   before_action :set_u_post, only: %i[show edit update destroy]
 
   def index
-    @u_posts = UserContent::Post.recents.includes(:owner).page(params[:page])
+    @u_posts = UserContent::Post.recents
+                                .includes(:owner)
+                                .includes(:rich_text_content)
+                                .page(params[:page])
   end
 
   def hash_tag
@@ -25,7 +30,10 @@ class U::PostsController < UController
 
   # GET /u/posts/1 or /u/posts/1.json
   def show
-    @u_replies = @u_post.replies.order(created_at: :asc)
+    @u_replies = @u_post.replies
+                        .order(created_at: :asc)
+                        .includes(:owner)
+                        .includes(:rich_text_content)
   end
 
   # GET /u/posts/new
@@ -43,11 +51,17 @@ class U::PostsController < UController
 
     respond_to do |format|
       if @u_post.save
-        format.html { redirect_to u_post_url(@u_post), notice: 'Post was successfully created.' }
+        format.html do
+          redirect_to u_post_url(@u_post),
+                      notice: 'Post was successfully created.'
+        end
         format.json { render :show, status: :created, location: @u_post }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @u_post.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @u_post.errors,
+                 status: :unprocessable_entity
+        end
       end
     end
   end
@@ -58,11 +72,17 @@ class U::PostsController < UController
 
     respond_to do |format|
       if @u_post.update(u_post_params)
-        format.html { redirect_to u_post_url(@u_post), notice: 'Post was successfully updated.' }
+        format.html do
+          redirect_to u_post_url(@u_post),
+                      notice: 'Post was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @u_post }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @u_post.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @u_post.errors,
+                 status: :unprocessable_entity
+        end
       end
     end
   end
@@ -72,7 +92,10 @@ class U::PostsController < UController
     @u_post.destroy!
 
     respond_to do |format|
-      format.html { redirect_to u_posts_url, notice: 'Post was successfully destroyed.' }
+      format.html do
+        redirect_to u_posts_url,
+                    notice: 'Post was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
