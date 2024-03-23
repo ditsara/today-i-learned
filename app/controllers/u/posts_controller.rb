@@ -6,12 +6,14 @@ class U::PostsController < UController
   end
 
   def hash_tag
-    @hash_tag = HashTag.find_by!(name: HashTag.format(params[:id]))
-    @u_posts = @hash_tag.user_contents
-                        .where(type: 'UserContent::Post')
-                        .order(created_at: :desc)
-                        .includes(:owner)
-                        .page(params[:page])
+    @hash_tag_formatted = HashTag.format(params[:id])
+    hash_tag = HashTag.find_by!(name: @hash_tag_formatted)
+    @u_posts = hash_tag.user_contents.where(type: 'UserContent::Post')
+                       .order(created_at: :desc).includes(:owner)
+                       .page(params[:page])
+  rescue ActiveRecord::RecordNotFound
+    @u_posts = UserContent::Post.none.page(params[:page])
+  ensure
     render :index
   end
 
