@@ -1,12 +1,12 @@
-require "test_helper"
+require 'test_helper'
 
 class User::SessionsControllerTest < ActionDispatch::IntegrationTest
-  test "should get new" do
+  test 'should get new' do
     get new_user_sessions_url
     assert_response :success
   end
 
-  test "logs in user" do
+  test 'logs in user' do
     user = build :user
     pw = user.password # this is erased after we save the user
     user.save
@@ -17,7 +17,7 @@ class User::SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_not_nil flash[:notice]
   end
 
-  test "does not log in user" do
+  test 'does not log in user' do
     user = create :user
     post user_sessions_url, params: {
       email: user.email,
@@ -27,7 +27,7 @@ class User::SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_not_nil flash[:alert]
   end
 
-  test "logs out user" do
+  test 'logs out user' do
     u = create :user
     login_user(u)
     delete user_sessions_url

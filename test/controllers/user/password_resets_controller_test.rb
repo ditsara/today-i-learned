@@ -26,7 +26,7 @@ class User::PasswordResetsControllerTest < ActionDispatch::IntegrationTest
     user.deliver_reset_password_instructions!
     assert_changes -> { user.reload.crypted_password } do
       put user_password_reset_path(id: user.reset_password_token),
-          params: { password_confirmation: 'Abcd1234$', password: 'Abcd1234$' }
+        params: { password_confirmation: 'Abcd1234$', password: 'Abcd1234$' }
     end
   end
 end

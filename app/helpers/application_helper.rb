@@ -24,9 +24,9 @@ module ApplicationHelper
   def custom_polymorphic_path(model)
     prefix =
       case model.class.to_s
-      when "UserContent::Post"
+      when 'UserContent::Post'
         'u_post'
-      when "UserContent::Reply"
+      when 'UserContent::Reply'
         'u_post_reply'
       end
 

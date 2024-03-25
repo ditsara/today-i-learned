@@ -53,14 +53,14 @@ class U::PostsController < UController
       if @u_post.save
         format.html do
           redirect_to u_post_url(@u_post),
-                      notice: 'Post was successfully created.'
+            notice: 'Post was successfully created.'
         end
         format.json { render :show, status: :created, location: @u_post }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json do
           render json: @u_post.errors,
-                 status: :unprocessable_entity
+            status: :unprocessable_entity
         end
       end
     end
@@ -74,14 +74,14 @@ class U::PostsController < UController
       if @u_post.update(u_post_params)
         format.html do
           redirect_to u_post_url(@u_post),
-                      notice: 'Post was successfully updated.'
+            notice: 'Post was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @u_post }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json do
           render json: @u_post.errors,
-                 status: :unprocessable_entity
+            status: :unprocessable_entity
         end
       end
     end
@@ -94,7 +94,7 @@ class U::PostsController < UController
     respond_to do |format|
       format.html do
         redirect_to u_posts_url,
-                    notice: 'Post was successfully destroyed.'
+          notice: 'Post was successfully destroyed.'
       end
       format.json { head :no_content }
     end

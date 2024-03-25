@@ -1,4 +1,3 @@
 class Pub::PagesController < PubController
-  def index
-  end
+  def index; end
 end

@@ -25,7 +25,7 @@ class UserContent::PostTest < ActiveSupport::TestCase
   test 'enqueues hashtag job on update' do
     p = create :user_content_post
     assert_enqueued_with(job: HashTagsUpdateJob) do
-      p.update(content: "New stuff")
+      p.update(content: 'New stuff')
     end
   end
 end

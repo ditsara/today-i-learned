@@ -32,7 +32,7 @@ class U::PostsControllerTest < ActionDispatch::IntegrationTest
     login_user @user
     assert_difference('UserContent::Post.count') do
       post u_posts_url,
-           params: { user_content_post: { title: 'Title', content: 'Hello' } }
+        params: { user_content_post: { title: 'Title', content: 'Hello' } }
     end
 
     assert_redirected_to u_post_url(UserContent::Post.last)
@@ -48,7 +48,7 @@ class U::PostsControllerTest < ActionDispatch::IntegrationTest
     login_user @user
     new_title = "New Title #{SecureRandom.uuid}"
     patch u_post_url(@u_post),
-          params: { user_content_post: { title: new_title } }
+      params: { user_content_post: { title: new_title } }
     assert_redirected_to u_post_url(@u_post)
   end
 
@@ -57,7 +57,7 @@ class U::PostsControllerTest < ActionDispatch::IntegrationTest
     login_user @other_user
     new_title = "New Title #{SecureRandom.uuid}"
     patch u_post_url(@u_post),
-          params: { user_content_post: { title: new_title } }
+      params: { user_content_post: { title: new_title } }
     assert_response :forbidden
   end
 end

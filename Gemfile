@@ -68,6 +68,8 @@ group :development do
 
   # Style and linting
   gem 'rubocop'
+  gem 'rubocop-factory_bot'
+  gem 'rubocop-rails'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"

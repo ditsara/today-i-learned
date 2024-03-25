@@ -1,12 +1,12 @@
-require "test_helper"
+require 'test_helper'
 
 class User::RegistrationsControllerTest < ActionDispatch::IntegrationTest
-  test "should get new" do
+  test 'should get new' do
     get new_user_registrations_url
     assert_response :success
   end
 
-  test "create new user" do
+  test 'create new user' do
     user = build :user
     assert_difference 'User.count', 1 do
       post user_registrations_url, params: {
@@ -21,12 +21,12 @@ class User::RegistrationsControllerTest < ActionDispatch::IntegrationTest
     assert_not_nil flash[:notice]
   end
 
-  test "does not create new user" do
+  test 'does not create new user' do
     user = build :user
     assert_difference 'User.count', 0 do
       post user_registrations_url, params: {
         user: {
-          email: "bad email",
+          email: 'bad email',
           password: user.password,
           password_confirmation: user.password
         }
@@ -39,8 +39,8 @@ class User::RegistrationsControllerTest < ActionDispatch::IntegrationTest
       post user_registrations_url, params: {
         user: {
           email: user.email,
-          password: "short!!",
-          password_confirmation: "short!!"
+          password: 'short!!',
+          password_confirmation: 'short!!'
         }
       }
     end
@@ -51,8 +51,8 @@ class User::RegistrationsControllerTest < ActionDispatch::IntegrationTest
       post user_registrations_url, params: {
         user: {
           email: user.email,
-          password: "notmatching1111",
-          password_confirmation: "notmatching2222"
+          password: 'notmatching1111',
+          password_confirmation: 'notmatching2222'
         }
       }
     end

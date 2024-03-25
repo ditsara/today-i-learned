@@ -6,7 +6,7 @@ class User::SessionsController < ApplicationController
       redirect_back_or_to(root_path, notice: 'Sign in successful')
     else
       logger.debug "#{self.class}: Signed in FAIL #{params[:email]}"
-      redirect_to new_user_sessions_path, alert: "Sign in failed"
+      redirect_to new_user_sessions_path, alert: 'Sign in failed'
     end
   end
 

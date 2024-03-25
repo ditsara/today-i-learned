@@ -22,7 +22,7 @@ class U::RepliesControllerTest < ActionDispatch::IntegrationTest
 
     assert_difference('UserContent::Reply.count') do
       post u_post_replies_url(post_id: @u_post.id),
-           params: { user_content_reply: { content: 'Hello' } }
+        params: { user_content_reply: { content: 'Hello' } }
     end
 
     assert_redirected_to u_post_url(id: @u_post.id)
@@ -37,7 +37,7 @@ class U::RepliesControllerTest < ActionDispatch::IntegrationTest
   test 'should edit reply' do
     login_user @user
     patch u_post_reply_url(post_id: @u_post.id, id: @u_reply.id),
-          params: { user_content_reply: { content: 'Modified' } }
+      params: { user_content_reply: { content: 'Modified' } }
     assert_redirected_to u_post_url(id: @u_post.id)
   end
 
@@ -46,7 +46,7 @@ class U::RepliesControllerTest < ActionDispatch::IntegrationTest
     @other_user = create(:user)
     @u_reply.update owner: @other_user
     patch u_post_reply_url(post_id: @u_post.id, id: @u_reply.id),
-          params: { user_content_reply: { content: 'Modified' } }
+      params: { user_content_reply: { content: 'Modified' } }
     assert_response :forbidden
   end
 end

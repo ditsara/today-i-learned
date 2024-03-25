@@ -4,7 +4,7 @@ class CreateUserContents < ActiveRecord::Migration[7.1]
       t.string :type
       t.integer :owner_id, null: false
 
-      t.string :title, default: ""
+      t.string :title, default: ''
 
       t.string :ancestry, collation: 'C', null: false
       t.index :ancestry
@@ -15,8 +15,8 @@ class CreateUserContents < ActiveRecord::Migration[7.1]
 
     add_foreign_key :user_contents, :users, column: :owner_id
 
-    add_index :user_contents, [:type, :owner_id]
+    add_index :user_contents, %i[type owner_id]
     add_index :user_contents,
-      [:type, :created_at], order: { type: :asc, created_at: :desc }
+      %i[type created_at], order: { type: :asc, created_at: :desc }
   end
 end

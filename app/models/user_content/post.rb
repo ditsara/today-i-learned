@@ -5,10 +5,10 @@ class UserContent::Post < UserContent
   validates :owner, presence: true
 
   def presentation_title
-    (title.presence || content&.to_plain_text)&.truncate(50, separator: " ")
+    (title.presence || content&.to_plain_text)&.truncate(50, separator: ' ')
   end
 
   def replies
-    descendants.where(type: "UserContent::Reply")
+    descendants.where(type: 'UserContent::Reply')
   end
 end

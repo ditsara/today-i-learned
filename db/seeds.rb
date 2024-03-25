@@ -36,9 +36,9 @@ if Rails.env.development?
       post = user.posts.new(title: t)
       post.save
       ActionText::RichText.create! record_type: 'UserContent',
-                                   record_id: post.id,
-                                   name: 'content',
-                                   body: paras_to_trix.call(body_content)
+        record_id: post.id,
+        name: 'content',
+        body: paras_to_trix.call(body_content)
     end
   end
 
@@ -66,12 +66,12 @@ if Rails.env.development?
     (0..10).to_a.sample.times do
       body_content = Faker::Lorem.paragraphs + get_random_hash_tag_texts.call(1)
       reply = post.replies.new parent: post,
-                               owner: User.order('RANDOM()').limit(1).first
+        owner: User.order('RANDOM()').limit(1).first
       reply.save
       ActionText::RichText.create! record_type: 'UserContent',
-                                   record_id: reply.id,
-                                   name: 'content',
-                                   body: paras_to_trix.call(body_content)
+        record_id: reply.id,
+        name: 'content',
+        body: paras_to_trix.call(body_content)
     end
   end
 
