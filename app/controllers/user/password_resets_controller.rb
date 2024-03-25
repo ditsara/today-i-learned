@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class User::PasswordResetsController < PubController
   def new
     @user = User.new

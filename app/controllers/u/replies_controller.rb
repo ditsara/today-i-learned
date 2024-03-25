@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class U::RepliesController < UController
   before_action :set_u_post
   before_action :set_u_reply, only: %i[edit update]

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module ApplicationHelper
   def humanize_datetime(dt)
     if 5.days.ago < dt && dt <= Time.now

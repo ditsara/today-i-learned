@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class UserContent < ApplicationRecord
   has_ancestry
   has_rich_text :content
