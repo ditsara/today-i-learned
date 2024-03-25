@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # Represents a Post. In our tree of content, a Post node is always a root node.
 # Any children/descendants underneath this must be a Reply.
 class UserContent::Post < UserContent

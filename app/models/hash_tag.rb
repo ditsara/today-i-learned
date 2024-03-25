@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class HashTag < ApplicationRecord
   has_many :hash_tag_links, class_name: 'HashTag::Link'
   has_many :user_contents, through: :hash_tag_links

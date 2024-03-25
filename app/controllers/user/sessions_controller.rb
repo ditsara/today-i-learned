@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class User::SessionsController < ApplicationController
   def create
     @user = login(params[:email], params[:password])

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class HashTag::Link < ApplicationRecord
   # def self.table_name_prefix
   #   "hash_tag_"

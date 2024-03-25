@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module ActionText::Postprocess
   class PP
     include Rails.application.routes.url_helpers

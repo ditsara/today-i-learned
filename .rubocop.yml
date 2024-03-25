@@ -7,3 +7,6 @@ Layout/ArgumentAlignment:
 
 Layout/ArrayAlignment:
   EnforcedStyle: with_fixed_indentation
+
+Style/ClassAndModuleChildren:
+  Enabled: false

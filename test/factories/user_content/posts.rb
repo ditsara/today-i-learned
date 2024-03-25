@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 FactoryBot.define do
   factory :user_content_post, class: 'UserContent::Post' do
     owner { association :user }

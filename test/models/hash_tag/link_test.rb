@@ -38,7 +38,7 @@ class HashTag::LinkTest < ActiveSupport::TestCase
   test 'removes link from Post to HashTag' do
     post = create :user_content_post
     hash_tag = create :hash_tag, name: Faker::Lorem.word
-    hash_tag_link = create(:hash_tag_link,
+    create(:hash_tag_link,
       user_content: post, hash_tag:)
 
     assert_difference 'HashTag::Link.count', -1 do
@@ -52,7 +52,7 @@ class HashTag::LinkTest < ActiveSupport::TestCase
     hash_tag = create :hash_tag, name: Faker::Lorem.word
     post = create :user_content_post,
       content: "#{Faker::Lorem.paragraph} #{hash_tag.name_with_hash}"
-    hash_tag_link = create(:hash_tag_link,
+    create(:hash_tag_link,
       user_content: post, hash_tag:)
 
     assert_no_difference 'HashTag::Link.count' do

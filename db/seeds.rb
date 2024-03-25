@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This file should ensure the existence of records required to run the application in every environment (production,
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
@@ -81,6 +82,8 @@ if Rails.env.development?
     random_offset_1 = (0..7).to_a.sample.days
     random_offset_2 = (0..60).to_a.sample.minutes
     t = post.created_at - random_offset_1 - random_offset_2
+
+    # rubocop:disable Rails/SkipsModelValidations
     post.update_columns created_at: t, updated_at: t
 
     post.replies.each do |reply|
@@ -88,6 +91,7 @@ if Rails.env.development?
       t = post.created_at + random_offset_3
       reply.update_columns created_at: t, updated_at: t
     end
+    # rubocop:enable Rails/SkipsModelValidations
   end
 
   UserContent.all.each { HashTag::Scanner.update_links _1 }
