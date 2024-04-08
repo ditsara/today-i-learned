@@ -96,3 +96,6 @@ gem 'pundit', '~> 2.3.1' # Simple authorization framework
 gem 'redcarpet', '~> 3.6.0' # Markdown rendering, for all user content [https://github.com/vmg/redcarpet]
 gem 'slim-rails', '~> 3.6.2' # html templating [https://slim-template.github.io]
 gem 'sorcery', '~> 0.16.5' # auth [https://github.com/sorcery/sorcery]
+
+gem 'dartsass-sprockets' # Dart Sass for Sprockets; required for Bootstrap [https://github.com/sass/dart-sass]
+gem 'bootstrap', '~> 5.3.0' # CSS framework [https://getbootstrap.com]
