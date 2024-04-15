@@ -9,4 +9,6 @@ class UserContent < ApplicationRecord
   has_many :hash_tags, through: :hash_tag_links
 
   after_save ->(uc) { HashTagsUpdateJob.perform_later uc.id }
+
+  scope :recents, -> { order(created_at: :desc) }
 end

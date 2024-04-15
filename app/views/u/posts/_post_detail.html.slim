@@ -1,0 +1,17 @@
+div id="#{dom_id post_reply}"
+
+ruby:
+  css_attrs = post_reply.model_name.element == 'reply' ? ['text-bg-light'] : []
+
+.card class=css_attrs id="#{dom_id post_reply}"
+  .card-header 
+    => link_to post_reply.owner.name, user_u_posts_path(post_reply.owner)
+    small: abbr[title=(post_reply.created_at)] = "(#{humanize_datetime post_reply.created_at})"
+  .card-body
+    h5.card-title = post_reply.title.presence
+    p.card-text = action_text_pp post_reply.content
+    - if policy(post_reply).update?
+      a.card-link[href=(edit_u_post_path(post_reply.id))] Edit #{post_reply.model_name.human}
+    - if Rails.env.local?
+      p: span.badge.text-bg-warning = post_reply.id
+
