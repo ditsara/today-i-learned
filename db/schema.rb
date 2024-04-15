@@ -90,6 +90,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_05_104524) do
     t.datetime "reset_password_email_sent_at"
     t.string "remember_me_token"
     t.datetime "remember_me_token_expires_at"
+    t.string "roles", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email"

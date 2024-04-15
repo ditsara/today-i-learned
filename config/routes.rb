@@ -27,5 +27,9 @@ Rails.application.routes.draw do
     resource :profiles, only: :show
   end
 
+  namespace :a do
+    resources :users, only: %i[index show update]
+  end
+
   root 'pub/pages#index'
 end

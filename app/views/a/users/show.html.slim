@@ -1,0 +1,8 @@
+h1 A/Users#show
+
+= form_with model: [:a, @user] do |f|
+  = f.label :email
+  = f.text_field :email
+  = f.label :roles
+  = f.collection_check_boxes :roles, User::ROLES, :to_s, :to_s
+  = f.submit
