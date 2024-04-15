@@ -2,25 +2,11 @@ h1 U::Posts#show
 
 p style="color: green" = notice
 
-= link_to "All Posts", action: :index
+.row.row-cols-1.g-4
+  .col = render "post_detail", post_reply: @u_post
 
-div id="#{dom_id @u_post}"
-  h2 = @u_post.title
-  = action_text_pp @u_post.content
-
-- if policy(@u_post).update?
-  div
-    => link_to "Edit this post", edit_u_post_path(@u_post.id)
-
-ul
   - @u_replies.each do |reply|
-    hr
-    = reply.owner.name
-    br
-    = action_text_pp reply.content
-    - if policy(reply).update?
-      div
-        = link_to "Edit this reply", edit_u_post_reply_path(post_id: @u_post.id, id: reply.id)
+    .col = render "post_detail", post_reply: reply
 
 hr
 = link_to "Reply", new_u_post_reply_path(@u_post)

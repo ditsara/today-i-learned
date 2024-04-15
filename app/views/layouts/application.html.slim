@@ -12,7 +12,7 @@ html
     
     nav.navbar.navbar-expand-lg.bg-body-tertiary
       .container-fluid
-        a.navbar-brand[href="#{root_path}"] Home
+        a.navbar-brand[href=(root_path)] Home
         button.navbar-toggler[type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"]
           span.navbar-toggler-icon
         #navbarSupportedContent.collapse.navbar-collapse
@@ -34,6 +34,8 @@ html
                 ul.dropdown-menu
                   li = link_to "Routes", "/rails/info/routes", **dropdown_attrs
                   li = link_to "Email Previews", "/rails/mailers", **dropdown_attrs
+          .d-flex
+            a.btn.btn-outline-success[href=(new_u_post_path)] New Post
 
           / search, for future use
           / form.d-flex[role="search"]
@@ -45,9 +47,3 @@ html
     p#notice = flash[:notice]
     p#alert = flash[:alert]
     .container = yield
-
-- if Rails.env.local?
-  hr
-  ' Development:
-  =< link_to "Routes", "/rails/info/routes"
-  =< link_to "Email Previews", "/rails/mailers"

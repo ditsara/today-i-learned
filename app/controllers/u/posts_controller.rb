@@ -18,22 +18,17 @@ class U::PostsController < UController
                        .page(params[:page])
   rescue ActiveRecord::RecordNotFound
     @u_posts = UserContent::Post.none.page(params[:page])
-  ensure
-    render :index
   end
 
   def user
     @user = User.find(params[:id])
     @u_posts = @user.posts.page(params[:page])
-    render :index
   end
 
   # GET /u/posts/1 or /u/posts/1.json
   def show
     @u_replies = @u_post.replies
-                        .order(created_at: :asc)
-                        .includes(:owner)
-                        .includes(:rich_text_content)
+      .recents.includes(:owner).includes(:rich_text_content)
   end
 
   # GET /u/posts/new

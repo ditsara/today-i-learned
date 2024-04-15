@@ -1,4 +1,4 @@
-h1 Recent Posts
+h1 = "Topics / ##{@hash_tag_formatted}"
 
 .row.row-cols-1.g-4
   - @u_posts.each do |post|
@@ -8,3 +8,4 @@ h1 Recent Posts
   p None found
 
 p = paginate @u_posts
+
