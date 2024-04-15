@@ -87,8 +87,8 @@ if Rails.env.development?
     post.update_columns created_at: t, updated_at: t
 
     post.replies.each do |reply|
-      random_offset_3 = (0..360).to_a.sample.minutes
-      t = post.created_at + random_offset_3
+      # choose a random time between when the post was created and now
+      t = Faker::Time.between(from: post.created_at, to: Time.now)
       reply.update_columns created_at: t, updated_at: t
     end
     # rubocop:enable Rails/SkipsModelValidations

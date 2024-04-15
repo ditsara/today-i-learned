@@ -14,7 +14,7 @@ class U::PostsController < UController
     @hash_tag_formatted = HashTag.format(params[:id])
     hash_tag = HashTag.find_by!(name: @hash_tag_formatted)
     @u_posts = hash_tag.user_contents.where(type: 'UserContent::Post')
-                       .order(created_at: :desc).includes(:owner)
+                       .recents.includes(:owner)
                        .page(params[:page])
   rescue ActiveRecord::RecordNotFound
     @u_posts = UserContent::Post.none.page(params[:page])
@@ -28,7 +28,7 @@ class U::PostsController < UController
   # GET /u/posts/1 or /u/posts/1.json
   def show
     @u_replies = @u_post.replies
-      .recents.includes(:owner).includes(:rich_text_content)
+                        .order(created_at: :asc).includes(:owner).includes(:rich_text_content)
   end
 
   # GET /u/posts/new
