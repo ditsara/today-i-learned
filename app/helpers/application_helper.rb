@@ -37,7 +37,7 @@ module ApplicationHelper
     if model.persisted?
       send "#{prefix}_path"
     else
-      send "#{prefix.pluralize}_path"
+      send "#{prefix.pluralize}_path", model
     end
   end
 end
