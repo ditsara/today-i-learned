@@ -8,4 +8,4 @@
       p.card-text = post.content&.to_plain_text&.truncate(100, separator: ' ')
 
       - if Setting.dev
-        p: span.badge.text-bg-warning = post.id
+        span.card-link.badge.text-bg-warning = post.id

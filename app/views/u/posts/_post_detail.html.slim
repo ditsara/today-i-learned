@@ -14,5 +14,5 @@ ruby:
       a.card-link[href=(edit_u_post_path(post_reply.id))] Edit #{post_reply.model_name.human}
 
     - if Setting.dev
-      p: span.badge.text-bg-warning = post_reply.id
+      span.card-link.badge.text-bg-warning = post_reply.id
 

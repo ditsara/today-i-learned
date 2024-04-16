@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   end
 
   namespace :u do
-    resources :posts do
+    resources :posts, except: %i[destroy] do
       collection do
         get 'hash_tag/:id', to: 'posts#hash_tag', as: 'hash_tag'
         get 'user/:id', to: 'posts#user', as: 'user'

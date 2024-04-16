@@ -47,7 +47,8 @@ if Rails.env.development?
     end
   end
 
-  # Make a test User (with Posts)
+  # Make a test User (with Posts). If you run this against a dev/test database,
+  # this user will have ID=1 and will be a permanent admin.
   user = User.create(
     name: 'Test User',
     email: 'test@test.com',
@@ -55,6 +56,14 @@ if Rails.env.development?
   )
   create_sample_posts.call(user)
 
+  # Create another test User (with Posts) who will not be an admin.
+  user = User.create(
+    name: 'Test User',
+    email: 'test2@test.com',
+    password: 'abc123D$'
+  )
+
+  create_sample_posts.call(user)
   # Make more Users (with Posts)
   20.times do
     user = User.create(
