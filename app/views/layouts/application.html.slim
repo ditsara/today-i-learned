@@ -32,8 +32,9 @@ html
                 a.nav-link.dropdown-toggle[href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"] Admin
                 ul.dropdown-menu
                   li.nav-item => link_to "Users", a_users_path, **navlink_attrs
+                  li.nav-item => link_to "Settings", new_a_setting_path, **navlink_attrs
 
-            - if Rails.env.local?
+            - if Setting.dev
               li.nav-item.dropdown
                 a.nav-link.dropdown-toggle[href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"]
                   span.badge.text-bg-warning Dev

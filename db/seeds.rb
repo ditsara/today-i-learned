@@ -11,6 +11,9 @@
 #   end
 
 if Rails.env.development?
+  # Turn on dev settings
+  Setting.dev = true
+
   # Create some common HashTags
   hash_tags = 10.times.map do
     HashTag.create name: Faker::Lorem.word

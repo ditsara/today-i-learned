@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   namespace :a do
     resources :users, only: %i[index show update]
+    resources :settings, only: %i[new create]
   end
 
   root 'pub/pages#index'
