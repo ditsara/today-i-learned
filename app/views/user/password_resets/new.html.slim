@@ -7,7 +7,7 @@ h1 User::PasswordResets#new
   .actions
     = f.submit "Email Password Reset Instructions"
 
-- if Rails.env.development?
+- if Setting.dev
   hr
 
   ruby:
@@ -18,5 +18,5 @@ h1 User::PasswordResets#new
     { action: :create },
     params: test_login_params
 
-- if Rails.env.local?
+- if Setting.dev
   = link_to "Email Previews", "/rails/mailers"

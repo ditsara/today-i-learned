@@ -12,13 +12,17 @@ h1 User::Sessions#new
 
 = link_to "Forgot Password", new_user_password_reset_path
 
-- if Rails.env.development?
+- if Setting.dev
   hr
 
   ruby:
     # from seed file
-    test_login_params = { email: "test@test.com", password: "abc123D$" }
+    test_login_params_1 = { email: "test@test.com", password: "abc123D$" }
+    test_login_params_2 = { email: "test2@test.com", password: "abc123D$" }
 
-  = button_to "Test Login User",
+  = button_to "Test Login Admin",
     { action: :create },
-    params: test_login_params
+    params: test_login_params_1
+  =< button_to "Test Login User",
+    { action: :create },
+    params: test_login_params_2

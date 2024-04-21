@@ -19,7 +19,7 @@ h1 User::Registrations#new
 
 = link_to "Forgot Password", new_user_password_reset_path
 
-- if Rails.env.development?
+- if Setting.dev
   hr
 
   ruby:

@@ -35,8 +35,10 @@ module ApplicationHelper
     return unless prefix
 
     if model.persisted?
+      # update
       send "#{prefix}_path"
     else
+      # create
       send "#{prefix.pluralize}_path"
     end
   end

@@ -13,7 +13,12 @@ html
     nav.navbar.navbar-expand-lg.bg-body-tertiary
       .container-fluid
         a.navbar-brand[href=(root_path)] Home
-        button.navbar-toggler[type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"]
+        button.navbar-toggler[
+          type="button" data-bs-toggle="collapse" 
+          data-bs-target="#navbarSupportedContent" 
+          aria-controls="navbarSupportedContent" 
+          aria-expanded="false" aria-label="Toggle navigation"
+        ]
           span.navbar-toggler-icon
         #navbarSupportedContent.collapse.navbar-collapse
           ul.navbar-nav.me-auto.mb-2.mb-lg-0
@@ -22,14 +27,27 @@ html
             - if current_user
               li.nav-item => link_to "TIL", u_posts_path, **navlink_attrs
               li.nav-item => link_to "Profile", u_profiles_path, **navlink_attrs 
-              li.nav-item => link_to "Sign Out", user_sessions_path, data: { turbo_method: :delete }, **navlink_attrs
+              li.nav-item => link_to "Sign Out", user_sessions_path,
+                data: { turbo_method: :delete }, **navlink_attrs
             - else
               li.nav-item => link_to "Sign Up", new_user_registrations_path, **navlink_attrs
               li.nav-item => link_to "Sign In", new_user_sessions_path, **navlink_attrs
 
-            - if Rails.env.local?
+            - if current_user&.admin?
               li.nav-item.dropdown
-                a.nav-link.dropdown-toggle[href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"]
+                a.nav-link.dropdown-toggle[
+                  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                ]
+                  span.badge.text-bg-danger Admin
+                ul.dropdown-menu
+                  li.nav-item => link_to "Users", a_users_path, **navlink_attrs
+                  li.nav-item => link_to "Settings", new_a_setting_path, **navlink_attrs
+
+            - if Setting.dev
+              li.nav-item.dropdown
+                a.nav-link.dropdown-toggle[
+                  href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                ]
                   span.badge.text-bg-warning Dev
                 ruby:
                   dropdown_attrs = { class: "dropdown-item", target: "_blank" }

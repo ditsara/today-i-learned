@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class U::PostsController < UController
-  before_action :set_u_post, only: %i[show edit update destroy]
+  before_action :set_u_post, only: %i[show edit update]
 
   def index
     @u_posts = UserContent::Post.recents
+                                .with_all_rich_text
                                 .includes(:owner)
                                 .includes(:rich_text_content)
                                 .page(params[:page])
@@ -13,8 +14,9 @@ class U::PostsController < UController
   def hash_tag
     @hash_tag_formatted = HashTag.format(params[:id])
     hash_tag = HashTag.find_by!(name: @hash_tag_formatted)
-    @u_posts = hash_tag.user_contents.where(type: 'UserContent::Post')
-                       .recents.includes(:owner)
+    @u_posts = hash_tag.user_contents.where(type: 'UserContent::Post').recents
+                       .with_all_rich_text
+                       .includes(:owner)
                        .page(params[:page])
   rescue ActiveRecord::RecordNotFound
     @u_posts = UserContent::Post.none.page(params[:page])
@@ -22,7 +24,11 @@ class U::PostsController < UController
 
   def user
     @user = User.find(params[:id])
-    @u_posts = @user.posts.page(params[:page])
+    @u_posts = @user.posts
+                    .with_all_rich_text
+                    .includes(:owner)
+                    .includes(:rich_text_content)
+                    .page(params[:page])
   end
 
   # GET /u/posts/1 or /u/posts/1.json
@@ -66,7 +72,7 @@ class U::PostsController < UController
     authorize @u_post
 
     respond_to do |format|
-      if @u_post.update(u_post_params)
+      if @u_post.update(u_post_params.merge(current_editor_id: current_user.id))
         format.html do
           redirect_to u_post_url(@u_post),
             notice: 'Post was successfully updated.'
@@ -83,17 +89,17 @@ class U::PostsController < UController
   end
 
   # DELETE /u/posts/1 or /u/posts/1.json
-  def destroy
-    @u_post.destroy!
-
-    respond_to do |format|
-      format.html do
-        redirect_to u_posts_url,
-          notice: 'Post was successfully destroyed.'
-      end
-      format.json { head :no_content }
-    end
-  end
+  # def destroy
+  #   @u_post.destroy!
+  #
+  #   respond_to do |format|
+  #     format.html do
+  #       redirect_to u_posts_url,
+  #         notice: 'Post was successfully destroyed.'
+  #     end
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   private
 

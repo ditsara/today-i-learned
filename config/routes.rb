@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   end
 
   namespace :u do
-    resources :posts do
+    resources :posts, except: %i[destroy] do
       collection do
         get 'hash_tag/:id', to: 'posts#hash_tag', as: 'hash_tag'
         get 'user/:id', to: 'posts#user', as: 'user'
@@ -25,6 +25,11 @@ Rails.application.routes.draw do
       resources :replies, only: %i[new edit create update]
     end
     resource :profiles, only: :show
+  end
+
+  namespace :a do
+    resources :users, only: %i[index show update]
+    resources :settings, only: %i[new create]
   end
 
   root 'pub/pages#index'

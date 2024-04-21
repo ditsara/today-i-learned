@@ -7,5 +7,5 @@
       h5.card-title = post.title.presence
       p.card-text = post.content&.to_plain_text&.truncate(100, separator: ' ')
 
-      - if Rails.env.local?
-        p: span.badge.text-bg-warning = post.id
+      - if Setting.dev
+        span.card-link.badge.text-bg-warning = post.id
