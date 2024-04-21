@@ -4,37 +4,28 @@ class U::PostsController < UController
   before_action :set_u_post, only: %i[show edit update]
 
   def index
-    @u_posts = UserContent::Post.recents
-                                .with_all_rich_text
-                                .includes(:owner)
-                                .includes(:rich_text_content)
-                                .page(params[:page])
+    @u_posts = post_listing_query(UserContent::Post)
   end
 
   def hash_tag
     @hash_tag_formatted = HashTag.format(params[:id])
     hash_tag = HashTag.find_by!(name: @hash_tag_formatted)
-    @u_posts = hash_tag.user_contents.where(type: 'UserContent::Post').recents
-                       .with_all_rich_text
-                       .includes(:owner)
-                       .page(params[:page])
+    @u_posts = post_listing_query(
+      hash_tag.user_contents.where(type: 'UserContent::Post')
+    )
   rescue ActiveRecord::RecordNotFound
     @u_posts = UserContent::Post.none.page(params[:page])
   end
 
   def user
     @user = User.find(params[:id])
-    @u_posts = @user.posts
-                    .with_all_rich_text
-                    .includes(:owner)
-                    .includes(:rich_text_content)
-                    .page(params[:page])
+    @u_posts = post_listing_query @user.posts
   end
 
   # GET /u/posts/1 or /u/posts/1.json
   def show
-    @u_replies = @u_post.replies
-                        .order(created_at: :asc).includes(:owner).includes(:rich_text_content)
+    @u_replies = @u_post.replies.with_all_rich_text
+      .order(created_at: :asc).includes(:owner)
   end
 
   # GET /u/posts/new
@@ -112,5 +103,13 @@ class U::PostsController < UController
   def u_post_params
     # params.fetch(:u_post, {})
     params.require(:user_content_post).permit(:title, :content)
+  end
+
+  def post_listing_query(ar_collection)
+    ar_collection
+      .recents
+      .with_all_rich_text
+      .includes(:owner)
+      .page(params[:page])
   end
 end

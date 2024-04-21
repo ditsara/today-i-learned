@@ -8,5 +8,8 @@ Layout/ArgumentAlignment:
 Layout/ArrayAlignment:
   EnforcedStyle: with_fixed_indentation
 
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
 Style/ClassAndModuleChildren:
   Enabled: false
