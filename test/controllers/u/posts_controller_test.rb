@@ -62,4 +62,13 @@ class U::PostsControllerTest < ActionDispatch::IntegrationTest
       params: { user_content_post: { title: new_title } }
     assert_response :forbidden
   end
+
+  test '(admin) should update u_post (redirect to #show)' do
+    @admin = create :user, roles: [:admin]
+    login_user @admin
+    new_title = "New Title #{SecureRandom.uuid}"
+    patch u_post_url(@u_post),
+      params: { user_content_post: { title: new_title } }
+    assert_redirected_to u_post_url(@u_post)
+  end
 end

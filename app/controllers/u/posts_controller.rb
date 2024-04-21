@@ -72,7 +72,7 @@ class U::PostsController < UController
     authorize @u_post
 
     respond_to do |format|
-      if @u_post.update(u_post_params)
+      if @u_post.update(u_post_params.merge(current_editor_id: current_user.id))
         format.html do
           redirect_to u_post_url(@u_post),
             notice: 'Post was successfully updated.'

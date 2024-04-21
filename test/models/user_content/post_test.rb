@@ -27,7 +27,18 @@ class UserContent::PostTest < ActiveSupport::TestCase
   test 'enqueues hashtag job on update' do
     p = create :user_content_post
     assert_enqueued_with(job: HashTagsUpdateJob) do
-      p.update(content: 'New stuff')
+      p.update(content: 'New stuff', current_editor_id: p.owner.id)
     end
+  end
+
+  test 'audit entry created on update' do
+    p = create :user_content_post
+    assert_difference 'AuditEntry.count' do
+      p.update(content: 'New stuff', current_editor_id: p.owner.id)
+    end
+
+    audit_entry = p.audit_entries.first
+    assert_equal p, audit_entry.auditable
+    assert_equal p.owner.id, audit_entry.user_id
   end
 end
