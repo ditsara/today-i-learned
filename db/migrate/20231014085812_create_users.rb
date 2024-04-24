@@ -13,6 +13,7 @@ class CreateUsers < ActiveRecord::Migration[7.1]
       t.string :remember_me_token
       t.datetime :remember_me_token_expires_at
       t.string :roles, array: true, default: []
+      t.string :about, default: ""
       t.timestamps
     end
 

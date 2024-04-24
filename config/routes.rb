@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
       resources :replies, only: %i[new edit create update]
     end
-    resource :profiles, only: :show
+    resource :profiles, only: %i[show edit update]
   end
 
   namespace :a do
