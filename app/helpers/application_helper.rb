@@ -13,33 +13,10 @@ module ApplicationHelper
     ActionText::Postprocess.postprocess(at_content)&.html_safe
   end
 
-  # I can't find a way to customize the default resourceful path for an AR
-  # model. When I call `form_with model: @post`, the framework is looking for
-  # `user_content_posts_path` or `user_content_post_path(@post)`. These don't
-  # exist in my routing scheme.
-  #
-  # This method allows me to write:
-  # `form_with model: @post, url: custom_polymorphic_path(@post)`
-  #
-  # This will then call the correct (create or update) route, depending on
-  # whether the model is persisted.
-  def custom_polymorphic_path(model)
-    prefix =
-      case model.class.to_s
-      when 'UserContent::Post'
-        'u_post'
-      when 'UserContent::Reply'
-        'u_post_reply'
-      end
-
-    return unless prefix
-
-    if model.persisted?
-      # update
-      send "#{prefix}_path"
-    else
-      # create
-      send "#{prefix.pluralize}_path"
-    end
+  # Use this to generate the correct path for a 
+  # `form_with model: @model, url: [:namespace, pluralize_new(@model)]`
+  def pluralize_new(model)
+    elem = model.model_name.element
+    (model.persisted? ? elem : elem.pluralize).to_sym
   end
 end

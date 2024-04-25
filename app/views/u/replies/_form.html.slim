@@ -1,4 +1,4 @@
-= form_with(model: @u_reply, url: custom_polymorphic_path(@u_reply)) do |form|
+= form_with model: @u_reply, url: [:u, :post, pluralize_new(@u_reply)] do |form|
   - if @u_reply.errors.any?
     div style="color: red"
       h2 = "#{pluralize(@u_reply.errors.count, "error")} prohibited this reply from being saved:"

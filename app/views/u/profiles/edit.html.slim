@@ -1,0 +1,21 @@
+h1 u/profiles#edit
+= render 'avatar', user: @user
+
+- if @user.avatar.attached?
+  = button_to 'Remove Avatar', u_profiles_path,
+    method: :patch, params: { user: { }, purge_avatar: true }
+ul
+  li = @user.id
+  li = @user.name
+  li = @user.email
+  li = @user.about
+
+= form_with model: @user, url: [:u, :profiles] do |form|
+  = form.label :name
+  = form.text_field :name
+  = form.label :about
+  = form.text_field :about
+  = form.label :avatar
+  = form.file_field :avatar
+  = form.submit 'Update'
+  = link_to 'Back', u_profiles_path(@user)

@@ -4,6 +4,8 @@ class User < ApplicationRecord
   ROLES = %w[admin].freeze
 
   authenticates_with_sorcery!
+  has_one_attached :avatar
+
   validates :email,
     presence: true,
     uniqueness: true,
@@ -15,6 +17,8 @@ class User < ApplicationRecord
     presence: true,
     if: -> { new_record? || changes[:crypted_password] }
 
+  validates :about, length: { maximum: 200 }
+
   has_many :user_contents, foreign_key: 'owner_id'
   has_many :posts, class_name: 'UserContent::Post', foreign_key: 'owner_id'
 
@@ -22,5 +26,9 @@ class User < ApplicationRecord
   # should be created as part of the initial deployment.
   def admin?
     id == 1 || roles.include?('admin')
+  end
+
+  def default_avatar
+    DefaultAvatar.for(self)
   end
 end
