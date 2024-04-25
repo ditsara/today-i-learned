@@ -27,6 +27,6 @@ class U::ProfilesControllerTest < ActionDispatch::IntegrationTest
     login_user @user
     patch u_profiles_url,
       params: { user: { name: "NewName" } }
-    assert_redirected_to u_profiles_url
+    assert_redirected_to edit_u_profiles_url
   end
 end
