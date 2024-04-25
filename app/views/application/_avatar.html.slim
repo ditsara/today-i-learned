@@ -1,0 +1,7 @@
+ruby:
+  user ||= @user
+
+- if user.avatar.attached?
+  = image_tag user.avatar.variant(resize_to_limit: [120, 120]), class: 'avatar'
+- else
+  .avatar == user.default_avatar

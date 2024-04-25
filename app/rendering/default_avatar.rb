@@ -33,7 +33,7 @@ module DefaultAvatar
       initial = user_initial(user)
 
       <<~EOS
-      <svg width="120" height="120">
+      <svg viewBox="0 0 120 120">
         <g transform="translate(60,60)">
           <circle cx="0" cy="0" r="50"
            stroke="#aaa" stroke-width="2" fill="#{bg}" />

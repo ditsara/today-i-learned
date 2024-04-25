@@ -5,6 +5,7 @@ ruby:
 
 .card class=css_attrs id="#{dom_id post_reply}"
   .card-header 
+    => render 'avatar_sm', user: post_reply.owner
     => link_to post_reply.owner.name, user_u_posts_path(post_reply.owner)
     small: abbr[title=(post_reply.created_at)] = "(#{humanize_datetime post_reply.created_at})"
   .card-body

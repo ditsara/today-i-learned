@@ -1,4 +1,10 @@
 h1 u/profiles#show
+= render 'avatar', user: @user
+
 ul
   li = @user.id
+  li = @user.name
+  li = @user.email
+  li = @user.about
+  li = link_to 'Edit', edit_u_profiles_path
   li = link_to 'My Posts', user_u_posts_path(@user)

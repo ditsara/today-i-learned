@@ -12,8 +12,10 @@ class U::ProfilesController < UController
   def update
     @user = current_user
 
+    @user.avatar.purge if params[:purge_avatar]
+
     if @user.update(user_params)
-      redirect_to u_profiles_path, notice: 'Profile was successfully updated.'
+      redirect_to edit_u_profiles_path, notice: 'Profile was successfully updated.'
     else
       render :edit
     end
@@ -22,6 +24,6 @@ class U::ProfilesController < UController
   private
 
   def user_params
-    params.require(:user).permit(:name, :about, :avatar)
+    params.require(:user).permit(:name, :about, :avatar, :purge)
   end
 end

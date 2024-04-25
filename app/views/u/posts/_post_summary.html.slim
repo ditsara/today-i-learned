@@ -1,5 +1,6 @@
 .card id="#{dom_id post}"
   .card-header 
+    => render 'avatar_sm', user: post.owner
     => link_to post.owner.name, user_u_posts_path(post.owner)
     small: abbr[title=(post.created_at)] = "(#{humanize_datetime post.created_at})"
   = link_to u_post_path(post.id) do
