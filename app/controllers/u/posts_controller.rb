@@ -25,7 +25,7 @@ class U::PostsController < UController
   # GET /u/posts/1 or /u/posts/1.json
   def show
     @u_replies = @u_post.replies.with_all_rich_text
-      .order(created_at: :asc).includes(:owner)
+      .order(created_at: :asc).includes(owner: :avatar_attachment)
   end
 
   # GET /u/posts/new
@@ -108,8 +108,8 @@ class U::PostsController < UController
   def post_listing_query(ar_collection)
     ar_collection
       .recents
-      .with_all_rich_text
-      .includes(:owner)
+      .with_rich_text_content
+      .includes(owner: :avatar_attachment)
       .page(params[:page])
   end
 end
