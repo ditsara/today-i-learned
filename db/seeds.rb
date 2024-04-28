@@ -106,5 +106,5 @@ if Rails.env.development?
     # rubocop:enable Rails/SkipsModelValidations
   end
 
-  UserContent.all.each { HashTag::Scanner.update_links _1 }
+  UserContent.all.each { HashTag::UpdateJob.perform_now _1.id }
 end

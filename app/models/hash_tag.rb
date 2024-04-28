@@ -15,49 +15,4 @@ class HashTag < ApplicationRecord
   def name_with_hash
     "##{name}"
   end
-
-  module Scanner
-    module_function
-
-    MATCHER = /(#+[a-zA-Z0-9(_)]{1,})/
-
-    def extract_hashtags(str)
-      str.scan(MATCHER).flatten
-    end
-
-    def update_links(user_content)
-      html_doc = Nokogiri::HTML.parse user_content.content.body&.to_html
-      body_hashtags = html_doc.search('//text()').map { extract_hashtags(_1.to_s) }
-      title_hashtags = extract_hashtags user_content.title
-
-      scanned_hash_tags_strs = [body_hashtags, title_hashtags]
-                               .flatten
-                               .map { HashTag.format(_1) }
-                               .uniq
-
-      current_hash_tag_strs = user_content.hash_tags.pluck(:name)
-
-      # add links that don't already exist (and create HashTag objs if req'd)
-      scanned_hash_tags_strs.each do |hash_tag_str|
-        next if hash_tag_str.in? current_hash_tag_strs
-
-        hash_tag = HashTag.find_or_create_by(name: hash_tag_str)
-        HashTag::Link.create(hash_tag:, user_content:)
-      end
-
-      # remove links that are no longer applicable
-      # NOTE: I'm sure there is an algorithmically more efficient way to do this
-      removed_hash_tag_strs = current_hash_tag_strs - scanned_hash_tags_strs
-      removed_hash_tag_strs.each do |hash_tag_str|
-        hash_tag_to_remove = user_content.hash_tags.find_by(name: hash_tag_str)
-        next unless hash_tag_to_remove
-
-        user_content.hash_tag_links
-                    .find_by(hash_tag: hash_tag_to_remove)&.destroy
-      end
-
-      # finally return the hashtags which were found in the content
-      scanned_hash_tags_strs
-    end
-  end # module Scanner
 end

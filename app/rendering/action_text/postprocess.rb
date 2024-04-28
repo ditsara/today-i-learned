@@ -12,7 +12,7 @@ module ActionText::Postprocess
 
       html_doc.search('.//text()').reject { _1.parent&.name == 'a' }.each do |t|
         t_content_decorated =
-          t.content.gsub HashTag::Scanner::MATCHER do |match|
+          t.content.gsub HashTag::UpdateJob::Updater::MATCHER do |match|
             param = HashTag.format(match)
             "<a href='#{hash_tag_u_posts_path(param)}'>#{match}</a>"
           end

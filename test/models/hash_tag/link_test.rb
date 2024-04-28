@@ -9,7 +9,7 @@ class HashTag::LinkTest < ActiveSupport::TestCase
       content: "#{Faker::Lorem.paragraph} #{hash_tag_text}"
 
     assert_difference ['HashTag.count', 'HashTag::Link.count'], 1 do
-      HashTag::Scanner.update_links post
+      HashTag::UpdateJob.perform_now post.id
     end
 
     new_hash_tag = HashTag.last
@@ -27,7 +27,7 @@ class HashTag::LinkTest < ActiveSupport::TestCase
 
     assert_difference -> { HashTag.count } => 0,
       -> { HashTag::Link.count } => 1 do
-        HashTag::Scanner.update_links post
+        HashTag::UpdateJob.perform_now post.id
       end
 
     new_hash_tag_link = HashTag::Link.last
@@ -42,7 +42,7 @@ class HashTag::LinkTest < ActiveSupport::TestCase
       user_content: post, hash_tag:)
 
     assert_difference 'HashTag::Link.count', -1 do
-      HashTag::Scanner.update_links post
+      HashTag::UpdateJob.perform_now post.id
     end
 
     assert_equal 0, post.hash_tags.count
@@ -56,7 +56,7 @@ class HashTag::LinkTest < ActiveSupport::TestCase
       user_content: post, hash_tag:)
 
     assert_no_difference 'HashTag::Link.count' do
-      HashTag::Scanner.update_links post
+      HashTag::UpdateJob.perform_now post.id
     end
 
     assert_equal hash_tag, post.hash_tags.first
