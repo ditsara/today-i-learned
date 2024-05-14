@@ -1,0 +1,10 @@
+h1 Bookmarked Posts
+
+.row.row-cols-1.g-4
+  - @u_posts.each do |post|
+    .col = render 'u/posts/post_summary', post: post
+
+- if @u_posts.empty?
+  p None found
+
+p = paginate @u_posts

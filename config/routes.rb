@@ -24,7 +24,9 @@ Rails.application.routes.draw do
 
       resources :replies, only: %i[new edit create update]
     end
+
     resource :profiles, only: %i[show edit update]
+    resources :bookmarks, only: %i[index show update destroy]
   end
 
   namespace :a do

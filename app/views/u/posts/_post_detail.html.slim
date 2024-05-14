@@ -8,6 +8,11 @@ ruby:
     => render 'avatar_sm', user: post_reply.owner
     => link_to post_reply.owner.name, user_u_posts_path(post_reply.owner)
     small: abbr[title=(post_reply.created_at)] = "(#{humanize_datetime post_reply.created_at})"
+
+    - if post_reply.model_name.element == 'post'
+      .float-end
+        = render 'u/bookmarks/toggle', user_content: post_reply
+
   .card-body
     h5.card-title = post_reply.title.presence
     p.card-text = action_text_pp post_reply.content

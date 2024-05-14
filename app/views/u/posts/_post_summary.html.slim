@@ -3,6 +3,9 @@
     => render 'avatar_sm', user: post.owner
     => link_to post.owner.name, user_u_posts_path(post.owner)
     small: abbr[title=(post.created_at)] = "(#{humanize_datetime post.created_at})"
+    .float-end
+      = render 'u/bookmarks/toggle', user_content: post
+
   = link_to u_post_path(post.id) do
     .card-body
       h5.card-title = post.title.presence

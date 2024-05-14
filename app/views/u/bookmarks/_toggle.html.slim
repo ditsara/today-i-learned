@@ -1,0 +1,7 @@
+= turbo_frame_tag dom_id(user_content) do
+  - if user_content.current_user_bookmark
+    = button_to "🗹", u_bookmark_path(user_content.id), method: :delete,
+      class: 'btn btn-success btn-sm'
+  - else
+    = button_to "☐", u_bookmark_path(user_content.id), method: :patch,
+      class: 'btn btn-outline-success btn-sm'

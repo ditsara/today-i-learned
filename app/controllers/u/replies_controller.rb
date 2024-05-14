@@ -34,7 +34,8 @@ class U::RepliesController < UController
 
     respond_to do |format|
       status = @u_reply.update(
-        u_reply_params.merge(current_editor_id: current_user.id))
+        u_reply_params.merge(current_editor_id: current_user.id)
+      )
       if status
         format.html { redirect_to u_post_url(@u_post), notice: 'Reply was successfully updated.' }
         format.json { render :show, status: :ok, location: @u_post }

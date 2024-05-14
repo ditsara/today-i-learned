@@ -21,6 +21,11 @@ class User < ApplicationRecord
 
   has_many :user_contents, foreign_key: 'owner_id'
   has_many :posts, class_name: 'UserContent::Post', foreign_key: 'owner_id'
+  has_many :bookmarks, class_name: 'UserContent::Bookmark'
+
+  def bookmarked?(user_content)
+    bookmarks.exists?(user_content_id: user_content.id)
+  end
 
   # Check admin role. Note that user id=1 is a permanent admin, so this user
   # should be created as part of the initial deployment.
