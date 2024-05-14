@@ -13,7 +13,7 @@ module ApplicationHelper
     ActionText::Postprocess.postprocess(at_content)&.html_safe
   end
 
-  # Use this to generate the correct path for a 
+  # Use this to generate the correct path for a
   # `form_with model: @model, url: [:namespace, pluralize_new(@model)]`
   def pluralize_new(model)
     elem = model.model_name.element

@@ -24,6 +24,7 @@ class U::PostsController < UController
 
   # GET /u/posts/1 or /u/posts/1.json
   def show
+    @u_post.with_bookmark_for(current_user)
     @u_replies = @u_post.replies.with_all_rich_text
       .order(created_at: :asc).includes(owner: :avatar_attachment)
   end
@@ -111,5 +112,6 @@ class U::PostsController < UController
       .with_rich_text_content
       .includes(owner: :avatar_attachment)
       .page(params[:page])
+      .with_bookmarks_for(current_user)
   end
 end

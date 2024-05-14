@@ -33,17 +33,17 @@ module DefaultAvatar
       initial = user_initial(user)
 
       <<~EOS
-      <svg viewBox="0 0 120 120">
-        <g transform="translate(60,60)">
-          <circle cx="0" cy="0" r="50"
-           stroke="#aaa" stroke-width="2" fill="#{bg}" />
-          <text x="0" y="0" alignment-baseline="middle"
-           font-size="30px" stroke-width="1" stroke="#{fg}"
-           fill="#{fg}" text-anchor="middle">
-           #{initial}
-          </text>
-        </g>
-      </svg>
+        <svg viewBox="0 0 120 120">
+          <g transform="translate(60,60)">
+            <circle cx="0" cy="0" r="50"
+             stroke="#aaa" stroke-width="2" fill="#{bg}" />
+            <text x="0" y="0" alignment-baseline="middle"
+             font-size="30px" stroke-width="1" stroke="#{fg}"
+             fill="#{fg}" text-anchor="middle">
+             #{initial}
+            </text>
+          </g>
+        </svg>
       EOS
     end
   end

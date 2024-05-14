@@ -86,15 +86,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_21_084021) do
     t.index ["var"], name: "index_settings_on_var", unique: true
   end
 
+  create_table "user_content_bookmarks", force: :cascade do |t|
+    t.bigint "user_content_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_content_id"], name: "index_user_content_bookmarks_on_user_content_id"
+    t.index ["user_id"], name: "index_user_content_bookmarks_on_user_id"
+  end
+
   create_table "user_contents", force: :cascade do |t|
     t.string "type"
-    t.integer "owner_id", null: false
+    t.bigint "owner_id", null: false
     t.string "title", default: ""
     t.string "ancestry", null: false, collation: "C"
     t.datetime "edited_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ancestry"], name: "index_user_contents_on_ancestry"
+    t.index ["owner_id"], name: "index_user_contents_on_owner_id"
     t.index ["type", "created_at"], name: "index_user_contents_on_type_and_created_at", order: { created_at: :desc }
     t.index ["type", "owner_id"], name: "index_user_contents_on_type_and_owner_id"
   end
@@ -122,5 +132,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_21_084021) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "hash_tag_links", "hash_tags"
   add_foreign_key "hash_tag_links", "user_contents"
+  add_foreign_key "user_content_bookmarks", "user_contents"
+  add_foreign_key "user_content_bookmarks", "users"
   add_foreign_key "user_contents", "users", column: "owner_id"
 end
