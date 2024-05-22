@@ -2,17 +2,20 @@
 
 class U::RepliesController < UController
   before_action :set_u_post
-  before_action :set_u_reply, only: %i[edit update]
+  before_action :set_u_reply, only: %i[edit show update]
 
   # GET /u/posts/:id/replies/new
   def new
     @u_reply = @u_post.replies.new
   end
 
-  # GET /u/posts/1/edit
+  # GET /u/posts/:post_id/replies/1/edit
   def edit; end
 
-  # POST /u/posts or /u/posts.json
+  # GET /u/posts/:post_id/replies/1
+  def show; end
+
+  # POST /u/posts/:post_id/replies
   def create
     @u_reply = UserContent::Reply.new(u_reply_params)
     @u_reply.assign_attributes owner: current_user, parent: @u_post
@@ -20,6 +23,7 @@ class U::RepliesController < UController
     respond_to do |format|
       if @u_reply.save
         format.html { redirect_to u_post_url(@u_post), notice: 'Reply was successfully created.' }
+        format.turbo_stream
         format.json { render :show, status: :created, location: @u_post }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -28,7 +32,7 @@ class U::RepliesController < UController
     end
   end
 
-  # PATCH/PUT /u/posts/1 or /u/posts/1.json
+  # PATCH/PUT /u/posts/:post_id/replies/1
   def update
     authorize @u_reply
 

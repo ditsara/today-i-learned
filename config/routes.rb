@@ -22,7 +22,7 @@ Rails.application.routes.draw do
         get 'user/:id', to: 'posts#user', as: 'user'
       end
 
-      resources :replies, only: %i[new edit create update]
+      resources :replies, only: %i[new show edit create update]
     end
 
     resource :profiles, only: %i[show edit update]

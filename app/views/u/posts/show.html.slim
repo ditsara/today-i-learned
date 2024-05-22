@@ -2,11 +2,13 @@ h1 U::Posts#show
 
 p style="color: green" = notice
 
-.row.row-cols-1.g-4
+= turbo_frame_tag 'replies', class: 'row row-cols-1 g-4' do
   .col = render "post_detail", post_reply: @u_post
 
   - @u_replies.each do |reply|
     .col = render "post_detail", post_reply: reply
 
-hr
-= link_to "Reply", new_u_post_reply_path(@u_post)
+.row.mt-4
+  = turbo_frame_tag UserContent::Reply.new, class: 'col' do
+    = link_to "Reply", new_u_post_reply_path(@u_post),
+      class: "btn btn-primary"

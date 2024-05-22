@@ -1,0 +1,8 @@
+= turbo_stream.append 'replies' do
+  / this col is a bit of a hack to get the reply to render within a Bootstrap
+  / row on posts/show (see posts/show.html.slim for more context)
+  .col = render 'u/posts/post_detail', post_reply: @u_reply
+
+= turbo_stream.update UserContent::Reply.new do
+  = link_to "Reply", new_u_post_reply_path(@u_post),
+    class: "btn btn-primary"

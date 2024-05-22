@@ -1,7 +1,8 @@
 h1 U::Replies#new
 = "Post #{@u_post.id}"
 
-== render "form", u_reply: @u_reply
+= turbo_frame_tag @u_reply do
+  == render "form", u_reply: @u_reply
 
 br
 
