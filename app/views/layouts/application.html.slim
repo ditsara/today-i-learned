@@ -15,7 +15,11 @@ html
     
     nav.navbar.navbar-expand-lg.bg-body-tertiary
       .container-fluid
-        a.navbar-brand[href=(root_path)] Home
+        a.navbar-brand[href=(root_path)]
+          img[
+            src=(asset_path("android-chrome-192x192.png"))
+            width="30" height="30"
+            alt="TodayILearned"]
         button.navbar-toggler[
           type="button" data-bs-toggle="collapse" 
           data-bs-target="#navbarSupportedContent" 
