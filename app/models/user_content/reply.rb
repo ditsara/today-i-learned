@@ -7,4 +7,11 @@ class UserContent::Reply < UserContent
   validates :owner, presence: true
   validates :parent, presence: true
   validates :title, presence: false
+
+  # after_commit do
+  #   broadcast_append_to [root, 'replies'],
+  #     partial: 'u/posts/post_detail',
+  #     locals: { post_reply: self },
+  #     target: [root, 'replies']
+  # end
 end

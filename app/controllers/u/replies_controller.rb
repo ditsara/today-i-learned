@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Represents a Reply. In our tree of UserContent, a Reply node is always
+# subordinate to a Post. Note that routes are nested under Posts, so we can
+# assume that a Reply will always have a parent Post.
 class U::RepliesController < UController
   before_action :set_u_post
   before_action :set_u_reply, only: %i[edit show update]
@@ -25,6 +28,11 @@ class U::RepliesController < UController
         format.html { redirect_to u_post_url(@u_post), notice: 'Reply was successfully created.' }
         format.turbo_stream
         format.json { render :show, status: :created, location: @u_post }
+
+        @u_reply.broadcast_append_later_to [@u_post, 'replies'],
+          partial: 'u/posts/post_detail',
+          locals: { post_reply: @u_reply, user: current_user },
+          target: [@u_post, 'replies']
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @u_reply.errors, status: :unprocessable_entity }
@@ -43,6 +51,12 @@ class U::RepliesController < UController
       if status
         format.html { redirect_to u_post_url(@u_post), notice: 'Reply was successfully updated.' }
         format.json { render :show, status: :ok, location: @u_post }
+
+        @u_reply.broadcast_replace_later_to [@u_post, 'replies'],
+          partial: 'u/posts/post_detail',
+          locals: { post_reply: @u_reply, user: current_user },
+          target: @u_reply
+
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @u_reply.errors, status: :unprocessable_entity }

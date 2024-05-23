@@ -1,27 +1,31 @@
-div id="#{dom_id post_reply}"
+/div id="#{dom_id post_reply}"
 
 ruby:
   css_attrs = post_reply.model_name.element == 'reply' ? ['text-bg-light'] : []
 
-.card class=css_attrs id="#{dom_id post_reply}"
-  .card-header 
-    => render 'avatar_sm', user: post_reply.owner
-    => link_to post_reply.owner.name, user_u_posts_path(post_reply.owner)
-    small: abbr[title=(post_reply.created_at)] = "(#{humanize_datetime post_reply.created_at})"
+/ class col is required for bootstrap grid
+= turbo_frame_tag post_reply, class: "col" do
+  .card class=css_attrs id="#{dom_id post_reply}"
+    .card-header 
+      => render 'avatar_sm', user: post_reply.owner
+      => link_to post_reply.owner.name, user_u_posts_path(post_reply.owner)
+      small: abbr[title=(post_reply.created_at)]
+        = "(#{humanize_datetime post_reply.created_at})"
 
-    - if post_reply.model_name.element == 'post'
-      .float-end
-        = render 'u/bookmarks/toggle', user_content: post_reply
-
-  .card-body
-    h5.card-title = post_reply.title.presence
-    p.card-text = action_text_pp post_reply.content
-    - if policy(post_reply).update?
       - if post_reply.model_name.element == 'post'
-        a.card-link[href=(edit_u_post_path(post_reply.id))] Edit #{post_reply.model_name.human}
-      - if post_reply.model_name.element == 'reply'
-        a.card-link[href=(edit_u_post_reply_path(post_reply.root, post_reply))] Edit #{post_reply.model_name.human}
+        .float-end
+          = render 'u/bookmarks/toggle', user_content: post_reply
 
-    - if Setting.dev
-      span.card-link.badge.text-bg-warning = post_reply.id
+    .card-body
+      h5.card-title = post_reply.title.presence
+      p.card-text = action_text_pp post_reply.content
+
+      - if user && Pundit.policy(user, post_reply).update?
+        - if post_reply.model_name.element == 'post'
+          a.card-link[href=(edit_u_post_path(post_reply.id))] Edit #{post_reply.model_name.human}
+        - if post_reply.model_name.element == 'reply'
+          a.card-link[href=(edit_u_post_reply_path(post_reply.root, post_reply))] Edit #{post_reply.model_name.human}
+
+      - if Setting.dev
+        span.card-link.badge.text-bg-warning = post_reply.id
 

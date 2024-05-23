@@ -1,15 +1,16 @@
-= form_with model: @u_reply, url: [:u, :post, pluralize_new(@u_reply)] do |form|
-  - if @u_reply.errors.any?
-    div style="color: red"
-      h2 = "#{pluralize(@u_reply.errors.count, "error")} prohibited this reply from being saved:"
-      ul
-        - @u_reply.errors.each do |error|
-          li = error.full_message
+= turbo_frame_tag @u_reply do
+  = form_with model: @u_reply, url: [:u, :post, pluralize_new(@u_reply)] do |form|
+    - if @u_reply.errors.any?
+      div style="color: red"
+        h2 = "#{pluralize(@u_reply.errors.count, "error")} prohibited this reply from being saved:"
+        ul
+          - @u_reply.errors.each do |error|
+            li = error.full_message
 
-  div
-    .field
-      = form.label :content
-      = form.rich_text_area :content
+    div
+      .field
+        = form.label :content
+        = form.rich_text_area :content
 
-    = form.submit
-    = link_to 'Cancel', u_post_path(@u_post)
+      = form.submit
+      = link_to 'Cancel', u_post_path(@u_post)

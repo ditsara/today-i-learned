@@ -1,12 +1,14 @@
+= turbo_stream_from [@u_post, "replies"]
+
 h1 U::Posts#show
 
 p style="color: green" = notice
 
-= turbo_frame_tag 'replies', class: 'row row-cols-1 g-4' do
-  .col = render "post_detail", post_reply: @u_post
+= turbo_frame_tag @u_post, "replies", class: 'row row-cols-1 g-4' do
+  = render "post_detail", post_reply: @u_post, user: current_user
 
   - @u_replies.each do |reply|
-    .col = render "post_detail", post_reply: reply
+    = render "post_detail", post_reply: reply, user: current_user
 
 .row.mt-4
   = turbo_frame_tag UserContent::Reply.new, class: 'col' do

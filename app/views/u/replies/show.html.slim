@@ -3,4 +3,4 @@ h1 U::Replies#show
 p style="color: green" = notice
 
 .row.row-cols-1.g-4
-  .col = render "u/posts/post_detail", post_reply: @u_reply
+  .col = render "u/posts/post_detail", post_reply: @u_reply, user: current_user
